@@ -1,25 +1,17 @@
 import React from 'react'
 import QuizContainer from './components/QuizContainer'
+import { withRouter } from 'react-router'
+import Header from './components/Header'
 import './App.scss'
-import { connect } from 'react-redux'
 
-const App = () => {
-
+const App = props => {
+  console.log(props)
   return (
     <div className='App'>
-      <h1>Welcome to play quizzes!</h1>
+      <Header />
       <QuizContainer/>
     </div>
   )
 }
 
-// const mapStateToProps = () => {
-// }
-
-// const mapDispatchToProps = {
-// }
-
-export default connect(
-  null,
-  null
-)(App)
+export default withRouter(App)
