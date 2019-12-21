@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import './App.css'
 import axios from 'axios'
 import { connect } from 'react-redux'
-import PropTypes from 'proptypes'
 
 const App = () => {
   const url = 'https://opentdb.com/api.php?amount=10&category=27&type=boolean'
@@ -21,16 +20,13 @@ const App = () => {
   )
 }
 
-App.PropTypes = {
-}
+// const mapStateToProps = () => {
+// }
 
-const mapStateToProps = () => {
-}
-
-const mapDispatchToProps = {
-}
+// const mapDispatchToProps = {
+// }
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  null,
+  null
 )(App)
