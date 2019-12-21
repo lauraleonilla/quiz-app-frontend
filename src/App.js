@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
-import './App.css'
+import Quiz from './components/Quiz'
+import './App.scss'
 import axios from 'axios'
 import { connect } from 'react-redux'
 
@@ -16,6 +17,7 @@ const App = () => {
   return (
     <div className='App'>
       <h1>Welcome to play quizzes!</h1>
+      <Quiz/>
     </div>
   )
 }
