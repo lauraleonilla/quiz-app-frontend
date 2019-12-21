@@ -1,15 +1,20 @@
 import React from 'react'
-import QuizContainer from './components/QuizContainer'
+import { Button } from 'semantic-ui-react'
 import { withRouter } from 'react-router'
 import Header from './components/Header'
 import './App.scss'
 
 const App = props => {
-  console.log(props)
+
+  const clickHandler = () => {
+    const path = 'quiz'
+    props.history.push(path)
+  }
+
   return (
     <div className='App'>
       <Header />
-      <QuizContainer/>
+      <Button content='Click to start!' onClick={() => clickHandler()}/>
     </div>
   )
 }
