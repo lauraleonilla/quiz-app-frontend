@@ -8,7 +8,12 @@ export default function appStateReducer(state = initialState.appState, action){
     newState = Object.assign({}, state, {
       quizData: action.payload
     })
-    console.log('STATTEE', newState)
+    return newState
+  }
+  case CONSTANTS.GOT_USER: {
+    newState = Object.assign({}, state, {
+      user: action.payload
+    })
     return newState
   }
   default: return state
