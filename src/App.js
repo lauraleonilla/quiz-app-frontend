@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { Button } from 'semantic-ui-react'
-import { withRouter } from 'react-router'
+import { withRouter, Redirect } from 'react-router'
 import Header from './components/Header'
 import { connect } from 'react-redux'
-import Login from './components/Login'
+// import Login from './components/Login'
 import CONSTANTS from './constants'
 import userService from './api/userService'
 import './App.scss'
@@ -28,7 +28,7 @@ const App = (props) => {
 
   return (
     <div className='App'>
-      {!props.user ? <Login /> : (
+      {!props.user ? <Redirect push to='/login'/> : (
         <div>
           <Header />
           <Button content='Click to start!' onClick={() => clickHandler()}/>

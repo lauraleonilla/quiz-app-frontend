@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { withRouter } from 'react-router'
+import { withRouter, Redirect } from 'react-router'
 import { Button } from 'semantic-ui-react'
 import { Input } from 'semantic-ui-react'
 import { Icon } from 'semantic-ui-react'
@@ -38,15 +38,23 @@ const Login = props => {
 
   return (
     <div className='loginContainer'>
-      <h1>Login</h1>
-      <form onSubmit={loginHandler} className='inputForm'>
-        <Input  icon={<Icon name='delete' link onClick={handleDeleteUserName}/>} placeholder='Username...' value={userName} onChange={usernameHandler}/>
-        <Input type='password' icon={<Icon name='delete' link onClick={handleDeletePassword}/>}  placeholder='Password...' value={passWord} onChange={passwordHandler}/>
-        <Button content='Login' type='submit'/>
-      </form>
+      {props.user ? <Redirect push to='/'/> : (
+        <div>
+          <h1>Login</h1>
+          <form onSubmit={loginHandler} className='inputForm'>
+            <Input  icon={<Icon name='delete' link onClick={handleDeleteUserName}/>} placeholder='Username...' value={userName} onChange={usernameHandler}/>
+            <Input type='password' icon={<Icon name='delete' link onClick={handleDeletePassword}/>}  placeholder='Password...' value={passWord} onChange={passwordHandler}/>
+            <Button content='Login' type='submit'/>
+          </form>
+        </div>
+      )}
     </div>
   )
 }
+
+const mapStateToProps = state => ({
+  user: state.appState.user
+})
 
 const mapDispatchToProps = dispatch => ({
   gotUser: user => {
@@ -58,6 +66,6 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default withRouter(connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Login))
