@@ -16,6 +16,12 @@ export default function appStateReducer(state = initialState.appState, action){
     })
     return newState
   }
+  case CONSTANTS.SELECT_QUIZ: {
+    newState = Object.assign({}, state, {
+      selectedQuiz: action.payload
+    })
+    return newState
+  }
   default: return state
   }
 }

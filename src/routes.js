@@ -4,13 +4,15 @@ import QuizContainer from './components/QuizContainer'
 import Login from './components/Login'
 import Header from './components/Header'
 import Chat from './components/Chat'
+import { connect } from 'react-redux'
 import ProfilePage from './components/ProfilePage'
+import QuizPage from './components/QuizPage'
 import {
   BrowserRouter as Router,
   Route
 } from 'react-router-dom'
 
-const Routes = () => {
+const Routes = props => {
   return (
     <div>
       <Router>
@@ -20,9 +22,20 @@ const Routes = () => {
         <Route exact path='/quiz' render={() => <QuizContainer />} />
         <Route exact path='/login' render={() => <Login />} />
         <Route exact path='/profile' render={() => <ProfilePage />} />
+        {props.selectedQuiz && props.selectedQuiz.length ?
+          <Route exact path={`/quiz/${props.selectedQuiz[0].category}`} render={() => <QuizPage />} />
+          : null}
       </Router>
     </div>
   )
 }
 
-export default Routes
+const mapStateToProps = state => ({
+  selectedQuiz: state.appState.selectedQuiz
+})
+
+
+export default connect(
+  mapStateToProps,
+  null
+)(Routes)

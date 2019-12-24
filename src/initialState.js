@@ -1,6 +1,7 @@
 export default {
   appState: {
     user: null,
-    quizData: []
+    quizData: [],
+    selectedQuiz: null
   }
 }
