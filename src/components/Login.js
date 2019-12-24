@@ -7,6 +7,8 @@ import './Login.scss'
 import { connect } from 'react-redux'
 import CONSTANTS from '../constants'
 import loginService from '../api/loginService'
+import FacebookLogin from 'react-facebook-login'
+
 
 const Login = props => {
   const [userName, setuserName] = useState('')
@@ -36,6 +38,17 @@ const Login = props => {
     setpassWord('')
   }
 
+  const responseFacebook = (response) => {
+    const user = {
+      userName: response.name,
+      token: response.accessToken
+    }
+    if(user) {
+      props.gotUser(user)
+      window.localStorage.setItem('loggedInUser', JSON.stringify(user))
+    }
+  }
+
   return (
     <div className='loginContainer'>
       {props.user ? <Redirect push to='/'/> : (
@@ -46,6 +59,13 @@ const Login = props => {
             <Input type='password' icon={<Icon name='delete' link onClick={handleDeletePassword}/>}  placeholder='Password...' value={passWord} onChange={passwordHandler}/>
             <Button content='Login' type='submit'/>
           </form>
+          <FacebookLogin
+            appId="2238566619796019"
+            autoLoad={false}
+            fields="name,email,picture"
+            // onClick={() => responseFacebook}
+            callback={responseFacebook}
+          />
         </div>
       )}
     </div>
