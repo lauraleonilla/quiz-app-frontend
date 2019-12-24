@@ -3,9 +3,10 @@ import { Menu } from 'semantic-ui-react'
 import { withRouter, Link } from 'react-router-dom'
 import './Header.scss'
 
-const Header = () => {
+const Header = props => {
   const logout = () => {
     window.localStorage.removeItem('loggedInUser')
+    props.history.push('/')
     window.location.reload()
   }
 

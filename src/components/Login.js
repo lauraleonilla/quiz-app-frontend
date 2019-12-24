@@ -39,8 +39,10 @@ const Login = props => {
   }
 
   const responseFacebook = (response) => {
+    console.log(response)
     const user = {
-      userName: response.name,
+      name: response.name,
+      image: response.picture.data.url,
       token: response.accessToken
     }
     if(user) {
@@ -62,7 +64,7 @@ const Login = props => {
           <FacebookLogin
             appId="2238566619796019"
             autoLoad={false}
-            fields="name,email,picture"
+            fields="name,email,picture.type(large)"
             callback={responseFacebook}
           />
         </div>
