@@ -2,10 +2,27 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 50px;
+}
+
+.inputField {
+    margin-bottom: 10px;
+}
+
+.facebookButton {
+    button {
+        width: 255px;
+        height: 35px;
+        font-size: 14px;
+        display: flex;
+        justify-content: center;
+        padding: inherit;
+    }
 }
 
 .inputForm {
     display: flex;
     flex-direction: column;
     width: 260px;
+    margin-bottom: 10px;
 }

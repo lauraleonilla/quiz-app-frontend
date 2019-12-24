@@ -55,16 +55,18 @@ const Login = props => {
         <div className='loginContainer'>
           <h1>Login</h1>
           <form onSubmit={loginHandler} className='inputForm'>
-            <Input  icon={<Icon name='delete' link onClick={handleDeleteUserName}/>} placeholder='Username...' value={userName} onChange={usernameHandler}/>
-            <Input type='password' icon={<Icon name='delete' link onClick={handleDeletePassword}/>}  placeholder='Password...' value={passWord} onChange={passwordHandler}/>
-            <Button content='Login' type='submit'/>
+            <Input className='inputField' icon={<Icon name='delete' link onClick={handleDeleteUserName}/>} placeholder='Username...' value={userName} onChange={usernameHandler}/>
+            <Input className='inputField' type='password' icon={<Icon name='delete' link onClick={handleDeletePassword}/>}  placeholder='Password...' value={passWord} onChange={passwordHandler}/>
+            <Button content='Login' type='submit' basic color='purple'/>
           </form>
-          <FacebookLogin
-            appId="2238566619796019"
-            autoLoad={false}
-            fields="name,email,picture.type(large)"
-            callback={responseFacebook}
-          />
+          <div className='facebookButton'>
+            <FacebookLogin
+              appId="2238566619796019"
+              autoLoad={false}
+              fields="name,email,picture.type(large)"
+              callback={responseFacebook}
+            />
+          </div>
         </div>
       )}
     </div>

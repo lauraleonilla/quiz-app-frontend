@@ -11,7 +11,7 @@ const Home = props => {
   return (
     <div>
       <h1>Welcome to play quizzes!</h1>
-      <Button content='Click to start!' onClick={() => clickHandler()}/>
+      <Button basic color='purple' content='Click to start!' onClick={() => clickHandler()}/>
     </div>
   )
 }
