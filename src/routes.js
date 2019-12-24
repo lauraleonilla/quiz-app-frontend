@@ -1,8 +1,9 @@
 import React from 'react'
-import App from './App'
+import Home from './components/Home'
 import QuizContainer from './components/QuizContainer'
 import Login from './components/Login'
 import Header from './components/Header'
+import Chat from './components/Chat'
 import ProfilePage from './components/ProfilePage'
 import {
   BrowserRouter as Router,
@@ -14,7 +15,8 @@ const Routes = () => {
     <div>
       <Router>
         <Header />
-        <Route exact path='/' render={() => <App />} />
+        <Route exact path='/' render={() => <Home />} />
+        <Route exact path='/chat' render={() => <Chat />} />
         <Route exact path='/quiz' render={() => <QuizContainer />} />
         <Route exact path='/login' render={() => <Login />} />
         <Route exact path='/profile' render={() => <ProfilePage />} />

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
-import { Button } from 'semantic-ui-react'
-import { withRouter, Redirect } from 'react-router'
 import { connect } from 'react-redux'
+import Routes from './routes'
+import Login from './components/Login'
 import CONSTANTS from './constants'
 import userService from './api/userService'
 import './App.scss'
@@ -21,19 +21,13 @@ const App = (props) => {
     }
   }, [gotUser])
 
-  const clickHandler = () => {
-    const path = 'quiz'
-    props.history.push(path)
-  }
-
   return (
     <div className='App'>
-      {!props.user ? <Redirect push to='/login'/> : (
-        <div>
-          <h1>Welcome to play quizzes!</h1>
-          <Button content='Click to start!' onClick={() => clickHandler()}/>
-        </div>
-      )}
+      {!props.user ?
+        <Login />
+        : (
+          <Routes />
+        )}
     </div>
   )
 }
@@ -51,7 +45,7 @@ const mapDispatchToProps = dispatch => ({
   }
 })
 
-export default withRouter(connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(App))
+)(App)

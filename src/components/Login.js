@@ -1,14 +1,13 @@
 import React, { useState } from 'react'
-import { withRouter, Redirect } from 'react-router'
 import { Button } from 'semantic-ui-react'
 import { Input } from 'semantic-ui-react'
 import { Icon } from 'semantic-ui-react'
+import Home from './Home'
 import './Login.scss'
 import { connect } from 'react-redux'
 import CONSTANTS from '../constants'
 import loginService from '../api/loginService'
 import FacebookLogin from 'react-facebook-login'
-
 
 const Login = props => {
   const [userName, setuserName] = useState('')
@@ -39,7 +38,6 @@ const Login = props => {
   }
 
   const responseFacebook = (response) => {
-    console.log(response)
     const user = {
       name: response.name,
       image: response.picture.data.url,
@@ -52,9 +50,9 @@ const Login = props => {
   }
 
   return (
-    <div className='loginContainer'>
-      {props.user ? <Redirect push to='/'/> : (
-        <div>
+    <div>
+      {props.user ? <Home /> : (
+        <div className='loginContainer'>
           <h1>Login</h1>
           <form onSubmit={loginHandler} className='inputForm'>
             <Input  icon={<Icon name='delete' link onClick={handleDeleteUserName}/>} placeholder='Username...' value={userName} onChange={usernameHandler}/>
@@ -86,7 +84,7 @@ const mapDispatchToProps = dispatch => ({
   }
 })
 
-export default withRouter(connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Login))
+)(Login)

@@ -1,4 +1,7 @@
 .container {
+    width: 300px;
+    display: grid;
+    justify-content: flex-start;
     font-size: 1.2em;
     margin: 30px;
 }
