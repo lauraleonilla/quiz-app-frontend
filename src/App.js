@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { Button } from 'semantic-ui-react'
 import { withRouter, Redirect } from 'react-router'
-import Header from './components/Header'
 import { connect } from 'react-redux'
 import CONSTANTS from './constants'
 import userService from './api/userService'
@@ -13,10 +12,12 @@ const App = (props) => {
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedInUser')
-    if (loggedUserJSON && loggedUserJSON.token) {
+    if(loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
-      gotUser(user)
-      userService.setToken(user.token)
+      if (user && user.token) {
+        gotUser(user)
+        userService.setToken(user.token)
+      }
     }
   }, [gotUser])
 
@@ -25,17 +26,11 @@ const App = (props) => {
     props.history.push(path)
   }
 
-  const logout = () => {
-    window.localStorage.removeItem('loggedInUser')
-    window.location.reload()
-  }
-
   return (
     <div className='App'>
       {!props.user ? <Redirect push to='/login'/> : (
         <div>
-          <Button content='Logout' onClick={() => logout()}/>
-          <Header />
+          <h1>Welcome to play quizzes!</h1>
           <Button content='Click to start!' onClick={() => clickHandler()}/>
         </div>
       )}

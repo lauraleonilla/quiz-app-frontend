@@ -1,14 +1,36 @@
 import React from 'react'
-import { Button } from 'semantic-ui-react'
+import { Menu } from 'semantic-ui-react'
 import { withRouter, Link } from 'react-router-dom'
+import './Header.scss'
 
 const Header = () => {
+  const logout = () => {
+    window.localStorage.removeItem('loggedInUser')
+    window.location.reload()
+  }
+
   return (
     <div style={{ padding: 20 }}>
-      <h1>Welcome to play quizzes!</h1>
-      <Link to='/profile'>
-        <Button content='Profile'/>
-      </Link>
+      <Menu>
+        <Menu.Item>
+          <Link to='/'>
+            Start page
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link to='/chat'>
+            Chat
+          </Link>
+        </Menu.Item>
+        <Menu.Item className='profileBtn'>
+          <Link to='/profile'>
+            My profile
+          </Link>
+        </Menu.Item>
+        <Menu.Item onClick={() => logout()}>
+          Logout
+        </Menu.Item>
+      </Menu>
     </div>
   )
 }
