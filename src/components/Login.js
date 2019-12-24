@@ -63,7 +63,6 @@ const Login = props => {
             appId="2238566619796019"
             autoLoad={false}
             fields="name,email,picture"
-            // onClick={() => responseFacebook}
             callback={responseFacebook}
           />
         </div>

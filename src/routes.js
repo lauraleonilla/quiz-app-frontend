@@ -2,6 +2,7 @@ import React from 'react'
 import App from './App'
 import QuizContainer from './components/QuizContainer'
 import Login from './components/Login'
+import ProfilePage from './components/ProfilePage'
 import {
   BrowserRouter as Router,
   Route
@@ -14,6 +15,7 @@ const Routes = () => {
         <Route exact path='/' render={() => <App />} />
         <Route exact path='/quiz' render={() => <QuizContainer />} />
         <Route exact path='/login' render={() => <Login />} />
+        <Route exact path='/profile' render={() => <ProfilePage />} />
       </Router>
     </div>
   )
