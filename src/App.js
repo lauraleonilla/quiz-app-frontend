@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import Routes from './routes'
-import Login from './components/Login'
+import LoginRoutes from './loginroutes'
 import CONSTANTS from './constants'
 import userService from './api/userService'
 import './App.scss'
@@ -23,11 +23,7 @@ const App = (props) => {
 
   return (
     <div className='App'>
-      {!props.user ?
-        <Login />
-        : (
-          <Routes />
-        )}
+      {!props.user ? <LoginRoutes /> : <Routes />}
     </div>
   )
 }

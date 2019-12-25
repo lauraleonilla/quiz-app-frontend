@@ -10,7 +10,7 @@
     margin-bottom: 10px;
 }
 
-.loginBtn {
+.registerBtn {
     width: 255px;
 }
 
@@ -22,11 +22,12 @@
         display: flex;
         justify-content: center;
         padding: inherit;
-        margin-bottom: 15px;
     }
 }
 
 .inputForm {
+    display: flex;
+    flex-direction: column;
     width: 260px;
     margin-bottom: 10px;
 }

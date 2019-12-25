@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import CONSTANTS from '../constants'
 import loginService from '../api/loginService'
 import FacebookLogin from 'react-facebook-login'
+import { Link } from 'react-router-dom'
 
 const Login = props => {
   const [userName, setuserName] = useState('')
@@ -38,8 +39,10 @@ const Login = props => {
   }
 
   const responseFacebook = (response) => {
+    console.log(response)
     const user = {
       name: response.name,
+      username: response.userID,
       image: response.picture.data.url,
       token: response.accessToken
     }
@@ -50,14 +53,14 @@ const Login = props => {
   }
 
   return (
-    <div>
+    <div className='loginContainer'>
       {props.user ? <Home /> : (
-        <div className='loginContainer'>
+        <div>
           <h1>Login</h1>
           <form onSubmit={loginHandler} className='inputForm'>
             <Input className='inputField' icon={<Icon name='delete' link onClick={handleDeleteUserName}/>} placeholder='Username...' value={userName} onChange={usernameHandler}/>
             <Input className='inputField' type='password' icon={<Icon name='delete' link onClick={handleDeletePassword}/>}  placeholder='Password...' value={passWord} onChange={passwordHandler}/>
-            <Button content='Login' type='submit' basic color='purple'/>
+            <Button className='loginBtn' content='Login' type='submit' basic color='purple'/>
           </form>
           <div className='facebookButton'>
             <FacebookLogin
@@ -69,6 +72,7 @@ const Login = props => {
           </div>
         </div>
       )}
+      <Link to='/register'>Or create an account here</Link>
     </div>
   )
 }

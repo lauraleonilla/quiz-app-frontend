@@ -7,6 +7,7 @@ import Chat from './components/Chat'
 import { connect } from 'react-redux'
 import ProfilePage from './components/ProfilePage'
 import QuizPage from './components/QuizPage'
+import Register from './components/Register'
 import {
   BrowserRouter as Router,
   Route
@@ -17,10 +18,11 @@ const Routes = props => {
     <div>
       <Router>
         <Header />
-        <Route exact path='/' render={() => <Home />} />
+        <Route exact path='/home' render={() => <Home />} />
         <Route exact path='/chat' render={() => <Chat />} />
         <Route exact path='/quiz' render={() => <QuizContainer />} />
         <Route exact path='/login' render={() => <Login />} />
+        <Route exact path='/register' render={() => <Register />} />
         <Route exact path='/profile' render={() => <ProfilePage />} />
         {props.selectedQuiz && props.selectedQuiz.length ?
           <Route exact path={`/quiz/${props.selectedQuiz[0].category}`} render={() => <QuizPage />} />
