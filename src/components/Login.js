@@ -7,6 +7,7 @@ import './Login.scss'
 import { connect } from 'react-redux'
 import CONSTANTS from '../constants'
 import loginService from '../api/loginService'
+import userService from '../api/userService'
 import FacebookLogin from 'react-facebook-login'
 import { Link } from 'react-router-dom'
 
