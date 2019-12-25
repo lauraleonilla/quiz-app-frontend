@@ -8,23 +8,29 @@ const QuizPage = props => {
   console.log('Quiz props', props)
   const [currentQuestion, setcurrentQuestion] = useState(0)
 
-  const renderQuestions = () => {
+  const renderQuestion = () => {
     return props.selectedQuiz[currentQuestion].question
+
   }
 
-  const clickHandler = () => {
-    console.log('lol')
+  const nextQuestionHandler = () => {
+    const newIndex = currentQuestion + 1
+    setcurrentQuestion(newIndex)
   }
 
   return (
     <div>
-      {renderQuestions()}
-      {props.selectedQuiz[currentQuestion].type === CONSTANTS.BOOLEAN ? (
+      {props.selectedQuiz[currentQuestion] ?
         <div>
-          <Button basic color='purple' content='True' onClick={() => clickHandler()} />
-          <Button basic color='purple' content='False' onClick={() => clickHandler()} />
-        </div>)
-        : null}
+          {renderQuestion()}
+          {props.selectedQuiz[currentQuestion].type === CONSTANTS.BOOLEAN ? (
+            <div>
+              <Button basic color='purple' content='True' onClick={() => nextQuestionHandler()} />
+              <Button basic color='purple' content='False' onClick={() => nextQuestionHandler()} />
+            </div>)
+            : null}
+        </div>
+        : null }
     </div>
   )
 }
