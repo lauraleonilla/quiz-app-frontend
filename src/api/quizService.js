@@ -9,6 +9,8 @@ const baseUrl = 'https://opentdb.com/api.php?amount=10&category=27&type=boolean'
 //   return response.data
 // }
 
+//  SAVE SCORE TO DB
+
 const getAll = async () => {
   const data = await axios.get(baseUrl)
   return data.data.results

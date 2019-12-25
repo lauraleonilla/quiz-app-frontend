@@ -2,5 +2,7 @@ export default {
   GOT_USER: 'GOT_USER',
   QUIZ_DATA: 'QUIZ_DATA',
   SELECT_QUIZ: 'SELECT_QUIZ',
-  BOOLEAN: 'boolean'
+  BOOLEAN: 'boolean',
+  CURRENT_SCORE: 'CURRENT_SCORE',
+  RESET_SCORE: 'RESET_SCORE'
 }

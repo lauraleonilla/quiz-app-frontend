@@ -22,6 +22,18 @@ export default function appStateReducer(state = initialState.appState, action){
     })
     return newState
   }
+  case CONSTANTS.CURRENT_SCORE: {
+    newState = Object.assign({}, state, {
+      currentScore: state.currentScore += 1
+    })
+    return newState
+  }
+  case CONSTANTS.RESET_SCORE: {
+    newState = Object.assign({}, state, {
+      currentScore: state.currentScore = 0
+    })
+    return newState
+  }
   default: return state
   }
 }
