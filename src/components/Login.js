@@ -7,7 +7,6 @@ import './Login.scss'
 import { connect } from 'react-redux'
 import CONSTANTS from '../constants'
 import loginService from '../api/loginService'
-import userService from '../api/userService'
 import FacebookLogin from 'react-facebook-login'
 import { Link } from 'react-router-dom'
 
@@ -40,10 +39,9 @@ const Login = props => {
   }
 
   const responseFacebook = (response) => {
-    console.log(response)
     const user = {
       name: response.name,
-      username: response.userID,
+      fbId: response.userID,
       image: response.picture.data.url,
       token: response.accessToken
     }
