@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from 'semantic-ui-react'
+import { Button, Segment } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import Cat from '../assets/cat.jpeg'
 import './ProfilePage.scss'
@@ -13,8 +13,8 @@ const ProfilePage = ({ user }) => {
     if(user.scores && user.scores.length) {
       return user.scores.map(score => {
         return (
-          <div key={score.id}>
-            <p>{score.quiz}</p>
+          <div className='scoreColumn' key={score.id}>
+            <h3>{score.quiz}</h3>
             <p>{score.score}</p>
           </div>
         )
@@ -30,8 +30,10 @@ const ProfilePage = ({ user }) => {
         <img className='image' src={Cat} alt='You!' />
       )}
       <div className='scoreBoard'>
-        <p>SCOREBOARD</p>
-        {getScores()}
+        <Segment raised>
+          <h2>Scoreboard</h2>
+          {getScores()}
+        </Segment>
       </div>
       <Button content='Edit profile' basic color='purple' />
     </div>

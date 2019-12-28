@@ -1,0 +1,20 @@
+.notFound {
+    background-image: url('../assets/abandoned.jpg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+    height: 800px;
+    h1 {
+        font-size: 40px;
+    }
+    p {
+        font-size: 20px;
+    }
+    a {
+        font-size: 20px;
+    }
+}
+
+.infoText {
+    padding-top: 50px;
+}
