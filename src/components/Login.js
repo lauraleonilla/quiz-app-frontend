@@ -3,6 +3,7 @@ import { Button } from 'semantic-ui-react'
 import { Input } from 'semantic-ui-react'
 import { Icon } from 'semantic-ui-react'
 import Home from './Home'
+import ErrorMessage from './ErrorMessage'
 import './Login.scss'
 import { connect } from 'react-redux'
 import CONSTANTS from '../constants'
@@ -13,6 +14,7 @@ import { Link } from 'react-router-dom'
 const Login = props => {
   const [userName, setuserName] = useState('')
   const [passWord, setpassWord] = useState('')
+  const [errorMessage, setErrorMessge] = useState('')
 
   const loginHandler = async event => {
     event.preventDefault()
@@ -20,9 +22,13 @@ const Login = props => {
       userName,
       passWord
     }
-    const user = await loginService.login(payload)
-    if(user) {
-      props.gotUser(user)
+    try {
+      const user = await loginService.login(payload)
+      if(user) {
+        props.gotUser(user)
+      }
+    } catch(error) {
+      setErrorMessge(error.response.data.error)
     }
   }
   const usernameHandler = event => {
@@ -54,8 +60,9 @@ const Login = props => {
   return (
     <div className='loginContainer'>
       {props.user ? <Home /> : (
-        <div>
+        <div className='loginElements'>
           <h1>Login</h1>
+          <ErrorMessage message={errorMessage}/>
           <form onSubmit={loginHandler} className='inputForm'>
             <Input className='inputField' icon={<Icon name='delete' link onClick={handleDeleteUserName}/>} placeholder='Username...' value={userName} onChange={usernameHandler}/>
             <Input className='inputField' type='password' icon={<Icon name='delete' link onClick={handleDeletePassword}/>}  placeholder='Password...' value={passWord} onChange={passwordHandler}/>

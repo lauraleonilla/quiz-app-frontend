@@ -1,0 +1,6 @@
+@import '../colors.scss';
+
+.errorMessage {
+    color: $errorText;
+    padding: 10px;
+}

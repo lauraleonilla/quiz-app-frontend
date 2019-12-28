@@ -5,6 +5,13 @@
     margin: 50px;
 }
 
+.loginElements {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .inputField {
     width: 255px;
     margin-bottom: 10px;
@@ -29,4 +36,5 @@
 .inputForm {
     width: 260px;
     margin-bottom: 10px;
+    align-items: center;
 }

@@ -1,5 +1,7 @@
+@import '../colors.scss';
+
 .profileBtn {
     margin-left: auto;
-    border-left: 1px solid #cacaca;
-    border-right: 1px solid #cacaca;
+    border-left: 1px solid $lightGray;
+    border-right: 1px solid $lightGray;
 }
