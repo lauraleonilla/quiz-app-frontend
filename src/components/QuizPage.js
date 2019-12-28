@@ -31,6 +31,7 @@ const QuizPage = props => {
     const newIndex = currentQuestion + 1
     if(newIndex === props.selectedQuiz.length) {
       const payload = {
+        quiz: props.selectedQuiz[0].category,
         userId: props.user.id,
         score: props.currentScore
       }

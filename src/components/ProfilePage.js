@@ -8,6 +8,20 @@ const ProfilePage = ({ user }) => {
   if(!user) {
     return null
   }
+
+  const getScores = () => {
+    if(user.scores && user.scores.length) {
+      return user.scores.map(score => {
+        return (
+          <div key={score.id}>
+            <p>{score.quiz}</p>
+            <p>{score.score}</p>
+          </div>
+        )
+      })
+    }
+  }
+
   return (
     <div className='container'>
       {user.username? <p className='title'>{user.username}</p> : null}
@@ -15,7 +29,10 @@ const ProfilePage = ({ user }) => {
       {user.image ? <img src={user.image} alt={user.image}/> : (
         <img className='image' src={Cat} alt='You!' />
       )}
-      <div className='scoreBoard'>SCOREBOARD</div>
+      <div className='scoreBoard'>
+        <p>SCOREBOARD</p>
+        {getScores()}
+      </div>
       <Button content='Edit profile' basic color='purple' />
     </div>
   )
