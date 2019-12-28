@@ -9,11 +9,15 @@ const baseUrl = 'https://opentdb.com/api.php?amount=10&category=27&type=boolean'
 //   return response.data
 // }
 
-//  SAVE SCORE TO DB
-
 const getAll = async () => {
   const data = await axios.get(baseUrl)
   return data.data.results
 }
 
-export default { getAll }
+const saveScore = async payload => {
+  const scoreUrl = '/api/quiz/score'
+  const response = await axios.post(scoreUrl, payload)
+  return response.data
+}
+
+export default { getAll, saveScore }

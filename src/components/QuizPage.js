@@ -3,6 +3,7 @@ import CONSTANTS from '../constants'
 import { Button } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
+import quizService from '../api/quizService'
 import './QuizPage.scss'
 
 const QuizPage = props => {
@@ -28,6 +29,13 @@ const QuizPage = props => {
       props.setScore()
     }
     const newIndex = currentQuestion + 1
+    if(newIndex === props.selectedQuiz.length) {
+      const payload = {
+        userId: props.user.id,
+        score: props.currentScore
+      }
+      quizService.saveScore(payload)
+    }
     setcurrentQuestion(newIndex)
   }
 
@@ -51,7 +59,8 @@ const QuizPage = props => {
 
 const mapStateToProps = state => ({
   selectedQuiz: state.appState.selectedQuiz,
-  currentScore: state.appState.currentScore
+  currentScore: state.appState.currentScore,
+  user: state.appState.user
 })
 
 const mapDispatchToProps = dispatch => ({
