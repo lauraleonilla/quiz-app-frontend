@@ -7,4 +7,10 @@ const login = async payload => {
   return response.data
 }
 
-export default { login }
+const fblogin = async payload => {
+  const response = await axios.post(baseUrl, payload)
+  window.localStorage.setItem('loggedInUser', JSON.stringify(response.data))
+  return response.data
+}
+
+export default { login, fblogin }

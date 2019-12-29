@@ -24,10 +24,10 @@ const Login = props => {
     }
     try {
       const user = await loginService.login(payload)
-      if(user) {
+      if (user) {
         props.gotUser(user)
       }
-    } catch(error) {
+    } catch (error) {
       setErrorMessge(error.response.data.error)
     }
   }
@@ -44,35 +44,64 @@ const Login = props => {
     setpassWord('')
   }
 
-  const responseFacebook = (response) => {
+  const responseFacebook = async response => {
     const user = {
       name: response.name,
-      fbId: response.userID,
-      image: response.picture.data.url,
-      token: response.accessToken
+      fbId: response.userID
+      // image: response.picture.data.url,
+      // token: response.accessToken
     }
-    if(user) {
-      props.gotUser(user)
-      window.localStorage.setItem('loggedInUser', JSON.stringify(user))
+    if (user) {
+      try {
+        const loggedInuser = await loginService.fblogin(user)
+        props.gotUser(loggedInuser)
+        window.localStorage.setItem(
+          'loggedInUser',
+          JSON.stringify(loggedInuser)
+        )
+      } catch (error) {
+        setErrorMessge(error.response.data.error)
+      }
     }
   }
 
   return (
     <div className='loginContainer'>
-      {props.user ? <Home /> : (
+      {props.user ? (
+        <Home />
+      ) : (
         <div className='loginElements'>
           <h1>Login</h1>
-          <ErrorMessage message={errorMessage}/>
+          <ErrorMessage message={errorMessage} />
           <form onSubmit={loginHandler} className='inputForm'>
-            <Input className='inputField' icon={<Icon name='delete' link onClick={handleDeleteUserName}/>} placeholder='Username...' value={userName} onChange={usernameHandler}/>
-            <Input className='inputField' type='password' icon={<Icon name='delete' link onClick={handleDeletePassword}/>}  placeholder='Password...' value={passWord} onChange={passwordHandler}/>
-            <Button className='loginBtn' content='Login' type='submit' basic color='purple'/>
+            <Input
+              className='inputField'
+              icon={<Icon name='delete' link onClick={handleDeleteUserName} />}
+              placeholder='Username...'
+              value={userName}
+              onChange={usernameHandler}
+            />
+            <Input
+              className='inputField'
+              type='password'
+              icon={<Icon name='delete' link onClick={handleDeletePassword} />}
+              placeholder='Password...'
+              value={passWord}
+              onChange={passwordHandler}
+            />
+            <Button
+              className='loginBtn'
+              content='Login'
+              type='submit'
+              basic
+              color='purple'
+            />
           </form>
           <div className='facebookButton'>
             <FacebookLogin
-              appId="2238566619796019"
+              appId='2238566619796019'
               autoLoad={false}
-              fields="name,email,picture.type(large)"
+              fields='name,email,picture.type(large)'
               callback={responseFacebook}
             />
           </div>
@@ -96,7 +125,4 @@ const mapDispatchToProps = dispatch => ({
   }
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(Login)
