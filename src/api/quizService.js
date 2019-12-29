@@ -17,6 +17,17 @@ const getAll = async () => {
 const saveScore = async payload => {
   const scoreUrl = '/api/quiz/score'
   const response = await axios.post(scoreUrl, payload)
+  let user = window.localStorage.getItem('loggedInUser')
+  user = JSON.parse(user)
+  const updateScore = user.scores.find(score => {
+    return score.id === response.data.id
+  })
+  if (updateScore) {
+    const index = user.scores.indexOf(updateScore)
+    user.scores.splice(index, 1)
+    user.scores.push(response.data)
+    window.localStorage.setItem('loggedInUser', JSON.stringify(user))
+  }
   return response.data
 }
 

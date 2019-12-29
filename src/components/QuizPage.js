@@ -18,41 +18,54 @@ const QuizPage = props => {
   }, [resetScore])
 
   const renderQuestion = () => {
-    return (<div className='questionContainer'>
-      <h3>{props.selectedQuiz[currentQuestion].question}</h3>
-    </div>)
+    return (
+      <div className='questionContainer'>
+        <h3>{props.selectedQuiz[currentQuestion].question}</h3>
+      </div>
+    )
   }
 
-  const nextQuestionHandler = (answer) => {
+  const nextQuestionHandler = async answer => {
     const correctAnswer = props.selectedQuiz[currentQuestion].correct_answer
-    if(answer === correctAnswer) {
+    if (answer === correctAnswer) {
       props.setScore()
     }
     const newIndex = currentQuestion + 1
-    if(newIndex === props.selectedQuiz.length) {
+    if (newIndex === props.selectedQuiz.length) {
       const payload = {
         quiz: props.selectedQuiz[0].category,
         userId: props.user.id,
         score: props.currentScore
       }
-      quizService.saveScore(payload)
+      const res = await quizService.saveScore(payload)
+      props.gotUser({ ...props.user, scores: [res] })
     }
     setcurrentQuestion(newIndex)
   }
 
   return (
     <div>
-      {props.selectedQuiz[currentQuestion] ?
+      {props.selectedQuiz[currentQuestion] ? (
         <div>
           {renderQuestion()}
           {props.selectedQuiz[currentQuestion].type === CONSTANTS.BOOLEAN ? (
             <div>
-              <Button basic color='purple' content='True' onClick={() => nextQuestionHandler('True')} />
-              <Button basic color='purple' content='False' onClick={() => nextQuestionHandler('False')} />
-            </div>)
-            : null}
+              <Button
+                basic
+                color='purple'
+                content='True'
+                onClick={() => nextQuestionHandler('True')}
+              />
+              <Button
+                basic
+                color='purple'
+                content='False'
+                onClick={() => nextQuestionHandler('False')}
+              />
+            </div>
+          ) : null}
         </div>
-        : null }
+      ) : null}
       <h3>Score: {props.currentScore}</h3>
     </div>
   )
@@ -74,11 +87,15 @@ const mapDispatchToProps = dispatch => ({
     dispatch({
       type: CONSTANTS.RESET_SCORE
     })
+  },
+  gotUser: user => {
+    dispatch({
+      type: CONSTANTS.GOT_USER,
+      payload: user
+    })
   }
 })
 
-
-export default withRouter(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(QuizPage))
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(QuizPage)
+)
