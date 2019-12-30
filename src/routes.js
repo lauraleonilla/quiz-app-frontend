@@ -1,18 +1,15 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Home from './components/Home'
 import QuizContainer from './components/QuizContainer'
 import Login from './components/Login'
 import Header from './components/Header'
 import Chat from './components/Chat'
-import { connect } from 'react-redux'
 import ProfilePage from './components/ProfilePage'
 import QuizPage from './components/QuizPage'
 import NotFoundPage from './components/NotFoundPage'
 import Register from './components/Register'
-import {
-  BrowserRouter as Router,
-  Route, Switch
-} from 'react-router-dom'
 
 const Routes = props => {
   return (
@@ -26,9 +23,13 @@ const Routes = props => {
           <Route exact path='/login' render={() => <Login />} />
           <Route exact path='/register' render={() => <Register />} />
           <Route exact path='/profile' render={() => <ProfilePage />} />
-          {props.selectedQuiz && props.selectedQuiz.length ?
-            <Route exact path={`/quiz/${props.selectedQuiz[0].category}`} render={() => <QuizPage />} />
-            : null}
+          {props.selectedQuiz && props.selectedQuiz.length ? (
+            <Route
+              exact
+              path={`/quiz/${props.selectedQuiz[0].category}`}
+              render={() => <QuizPage />}
+            />
+          ) : null}
           <Route component={NotFoundPage} />
         </Switch>
       </Router>
@@ -40,8 +41,4 @@ const mapStateToProps = state => ({
   selectedQuiz: state.appState.selectedQuiz
 })
 
-
-export default connect(
-  mapStateToProps,
-  null
-)(Routes)
+export default connect(mapStateToProps, null)(Routes)

@@ -2,14 +2,14 @@ import React, { useState } from 'react'
 import { Button } from 'semantic-ui-react'
 import { Input } from 'semantic-ui-react'
 import { Icon } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 import Home from './Home'
 import ErrorMessage from './ErrorMessage'
-import './Login.scss'
-import { connect } from 'react-redux'
 import CONSTANTS from '../constants'
 import loginService from '../api/loginService'
 import FacebookLogin from 'react-facebook-login'
-import { Link } from 'react-router-dom'
+import './Login.scss'
 
 const Login = props => {
   const [userName, setuserName] = useState('')
@@ -48,17 +48,16 @@ const Login = props => {
     const user = {
       name: response.name,
       fbId: response.userID
-      // image: response.picture.data.url,
-      // token: response.accessToken
     }
     if (user) {
       try {
         const loggedInuser = await loginService.fblogin(user)
-        props.gotUser(loggedInuser)
-        window.localStorage.setItem(
-          'loggedInUser',
-          JSON.stringify(loggedInuser)
-        )
+        const userToSave = {
+          ...loggedInuser,
+          image: response.picture.data.url
+        }
+        props.gotUser(userToSave)
+        window.localStorage.setItem('loggedInUser', JSON.stringify(userToSave))
       } catch (error) {
         setErrorMessge(error.response.data.error)
       }

@@ -6,13 +6,12 @@ import CONSTANTS from './constants'
 import userService from './api/userService'
 import './App.scss'
 
-const App = (props) => {
-
+const App = props => {
   const { gotUser } = props
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedInUser')
-    if(loggedUserJSON) {
+    if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       if (user && user.token) {
         gotUser(user)
@@ -21,11 +20,7 @@ const App = (props) => {
     }
   }, [gotUser])
 
-  return (
-    <div className='App'>
-      {!props.user ? <LoginRoutes /> : <Routes />}
-    </div>
-  )
+  return <div className='App'>{!props.user ? <LoginRoutes /> : <Routes />}</div>
 }
 
 const mapStateToProps = state => ({
@@ -41,7 +36,4 @@ const mapDispatchToProps = dispatch => ({
   }
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App)

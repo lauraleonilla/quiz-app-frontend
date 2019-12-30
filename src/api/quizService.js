@@ -1,5 +1,4 @@
 import axios from 'axios'
-const baseUrl = 'https://opentdb.com/api.php?amount=10&category=27&type=boolean'
 
 // const create = async newObject => {
 //   const config = {
@@ -10,6 +9,8 @@ const baseUrl = 'https://opentdb.com/api.php?amount=10&category=27&type=boolean'
 // }
 
 const getAll = async () => {
+  const baseUrl =
+    'https://opentdb.com/api.php?amount=10&category=27&type=boolean'
   const data = await axios.get(baseUrl)
   return data.data.results
 }
