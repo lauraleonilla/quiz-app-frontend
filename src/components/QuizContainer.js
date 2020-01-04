@@ -5,16 +5,17 @@ import { connect } from 'react-redux'
 import quizService from '../api/quizService'
 
 const QuizContainer = props => {
-
-  const { gotQuizData } = props
+  const { gotQuizData, gotFilmQuizData } = props
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await quizService.getAll()
+      const filmQuizdata = await quizService.getAllFilmQuiz()
+      gotFilmQuizData(filmQuizdata)
       gotQuizData(data)
     }
     fetchData()
-  },[gotQuizData])
+  }, [gotQuizData, gotFilmQuizData])
 
   const selectQuizHandler = quiz => {
     props.selectQuiz(quiz)
@@ -25,7 +26,16 @@ const QuizContainer = props => {
       <h1>Select a quiz</h1>
       {props.quizData && props.quizData.length ? (
         <Link to={`/quiz/${props.quizData[0].category}`}>
-          <p onClick={() => selectQuizHandler(props.quizData)}>{props.quizData[0].category}</p>
+          <p onClick={() => selectQuizHandler(props.quizData)}>
+            {props.quizData[0].category}
+          </p>
+        </Link>
+      ) : null}
+      {props.filmQuizData && props.filmQuizData.length ? (
+        <Link to={`/quiz/${props.filmQuizData[0].category}`}>
+          <p onClick={() => selectQuizHandler(props.filmQuizData)}>
+            {props.filmQuizData[0].category}
+          </p>
         </Link>
       ) : null}
     </div>
@@ -33,13 +43,20 @@ const QuizContainer = props => {
 }
 
 const mapStateToProps = state => ({
-  quizData: state.appState.quizData
+  quizData: state.appState.quizData,
+  filmQuizData: state.appState.filmQuizData
 })
 
 const mapDispatchToProps = dispatch => ({
   gotQuizData: data => {
     dispatch({
       type: CONSTANTS.QUIZ_DATA,
+      payload: data
+    })
+  },
+  gotFilmQuizData: data => {
+    dispatch({
+      type: CONSTANTS.FILM_QUIZ_DATA,
       payload: data
     })
   },
@@ -51,7 +68,6 @@ const mapDispatchToProps = dispatch => ({
   }
 })
 
-export default withRouter(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(QuizContainer))
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(QuizContainer)
+)

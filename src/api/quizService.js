@@ -15,6 +15,13 @@ const getAll = async () => {
   return data.data.results
 }
 
+const getAllFilmQuiz = async () => {
+  const baseUrl =
+    'https://opentdb.com/api.php?amount=10&category=11&type=boolean'
+  const data = await axios.get(baseUrl)
+  return data.data.results
+}
+
 const saveScore = async payload => {
   const scoreUrl = '/api/quiz/score'
   const response = await axios.post(scoreUrl, payload)
@@ -32,4 +39,4 @@ const saveScore = async payload => {
   return response.data
 }
 
-export default { getAll, saveScore }
+export default { getAll, saveScore, getAllFilmQuiz }

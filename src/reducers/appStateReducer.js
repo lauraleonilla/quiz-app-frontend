@@ -10,6 +10,12 @@ const appStateReducer = (state = initialState.appState, action) => {
     })
     return newState
   }
+  case CONSTANTS.FILM_QUIZ_DATA: {
+    newState = Object.assign({}, state, {
+      filmQuizData: action.payload
+    })
+    return newState
+  }
   case CONSTANTS.GOT_USER: {
     newState = Object.assign({}, state, {
       user: action.payload
