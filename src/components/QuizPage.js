@@ -38,7 +38,8 @@ const QuizPage = props => {
         score: props.currentScore
       }
       const res = await quizService.saveScore(payload)
-      props.gotUser({ ...props.user, scores: [res] })
+      const concatScores = props.user.scores.concat(res)
+      props.gotUser({ ...props.user, scores: concatScores })
     }
     setcurrentQuestion(newIndex)
   }

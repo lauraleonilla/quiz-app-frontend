@@ -35,6 +35,9 @@ const saveScore = async payload => {
     user.scores.splice(index, 1)
     user.scores.push(response.data)
     window.localStorage.setItem('loggedInUser', JSON.stringify(user))
+  } else {
+    user.scores.push(response.data)
+    window.localStorage.setItem('loggedInUser', JSON.stringify(user))
   }
   return response.data
 }
