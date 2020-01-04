@@ -2,29 +2,31 @@ import React from 'react'
 import { Button } from 'semantic-ui-react'
 
 const MultipleChoice = ({ currentQuestion, nextQuestionHandler }) => {
+  const shuffle = array => {
+    let j, x, i
+    for (i = array.length - 1; i > 0; i--) {
+      j = Math.floor(Math.random() * (i + 1))
+      x = array[i]
+      array[i] = array[j]
+      array[j] = x
+    }
+    return array
+  }
   const renderAnswers = () => {
-    return currentQuestion.incorrect_answers.map(answer => (
+    currentQuestion.incorrect_answers.push(currentQuestion.correct_answer)
+    const shuffled = shuffle(currentQuestion.incorrect_answers)
+    return shuffled.map(answer => (
       <Button
-        key={answer}
+        key={atob(answer)}
         basic
         color='purple'
         content={atob(answer)}
-        onClick={() => nextQuestionHandler(answer)}
+        onClick={() => nextQuestionHandler(atob(answer))}
       />
     ))
   }
 
-  return (
-    <div>
-      <Button
-        basic
-        color='purple'
-        content={atob(currentQuestion.correct_answer)}
-        onClick={() => nextQuestionHandler(currentQuestion.correct_answer)}
-      />
-      {renderAnswers()}
-    </div>
-  )
+  return <div>{renderAnswers()}</div>
 }
 
 export default MultipleChoice
