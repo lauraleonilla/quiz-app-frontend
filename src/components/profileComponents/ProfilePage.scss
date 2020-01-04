@@ -1,0 +1,29 @@
+.container {
+    width: 300px;
+    display: grid;
+    justify-content: flex-start;
+    text-align: initial;
+    font-size: 1.2em;
+    margin: 30px;
+}
+
+.scoreBoard {
+    margin: 15px 0px;
+}
+
+.scoreColumn {
+    margin-bottom: 5px;
+    h3 {
+        margin-bottom: 0px;
+    }
+}
+
+.title {
+    font-size: 1.5em;
+}
+
+.image {
+    height: 250px;
+    width: 250px;
+    object-fit: cover;
+}
