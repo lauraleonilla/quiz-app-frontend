@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import CONSTANTS from '../../constants'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import quizService from '../../api/quizService'
 import Boolean from './Boolean'
@@ -9,39 +9,45 @@ import './QuizPage.scss'
 
 const QuizPage = props => {
   const [currentQuestion, setcurrentQuestion] = useState(0)
+  const [score, setScore] = useState(0)
+  const [message, setMessage] = useState(null)
 
-  const { gotQuizData, match, setScore } = props
+  const { gotQuizData, match } = props
 
   useEffect(() => {
     const fetchData = async () => {
       const selectedQuiz = match.params.selectedQuiz
       const data = await quizService.getQuizdata(selectedQuiz)
       gotQuizData(data)
-      return function cleanup() {
-        setScore(null)
-      }
     }
     fetchData()
-  }, [gotQuizData, match, setScore])
+  }, [gotQuizData, match])
+
+  const scoreHandler = async () => {
+    const payload = {
+      quiz: atob(props.quizData[0].category),
+      userId: props.user.id,
+      score
+    }
+    const response = await quizService.saveScore(payload)
+    if (!response.message) {
+      const concatScores = props.user.scores.concat(response)
+      props.gotUser({ ...props.user, scores: concatScores })
+    } else {
+      setMessage(`Your new score is ${response.newScore.score}`)
+    }
+  }
 
   const nextQuestionHandler = async answer => {
     const correctAnswer = atob(props.quizData[currentQuestion].correct_answer)
     if (answer === correctAnswer) {
-      props.setScore()
+      const newScore = score + 1
+      setScore(newScore)
     }
     const newIndex = currentQuestion + 1
     if (newIndex === props.quizData.length) {
-      const payload = {
-        quiz: atob(props.quizData[0].category),
-        userId: props.user.id,
-        score: props.currentScore
-      }
-      const res = await quizService.saveScore(payload)
-      if (!res.message) {
-        const concatScores = props.user.scores.concat(res)
-        props.gotUser({ ...props.user, scores: concatScores })
-      }
       setcurrentQuestion(null)
+      scoreHandler()
     } else {
       setcurrentQuestion(newIndex)
     }
@@ -71,13 +77,16 @@ const QuizPage = props => {
 
   return (
     <div>
+      <h2>{message}</h2>
       {props.quizData[currentQuestion] ? (
         <div>
           {renderQuestion()}
           {renderOptions()}
         </div>
-      ) : null}
-      <h3>Score: {props.currentScore}</h3>
+      ) : (
+        <Link to='/quiz'>Back to quizzes</Link>
+      )}
+      <h3>Score: {score}</h3>
     </div>
   )
 }
@@ -93,16 +102,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch({
       type: CONSTANTS.QUIZ_DATA,
       payload: data
-    })
-  },
-  setScore: () => {
-    dispatch({
-      type: CONSTANTS.CURRENT_SCORE
-    })
-  },
-  resetScore: () => {
-    dispatch({
-      type: CONSTANTS.RESET_SCORE
     })
   },
   gotUser: user => {

@@ -4,44 +4,32 @@ import initialState from '../initialState'
 const appStateReducer = (state = initialState.appState, action) => {
   let newState = null
   switch (action.type) {
-  case CONSTANTS.QUIZ_DATA: {
-    newState = Object.assign({}, state, {
-      quizData: action.payload
-    })
-    return newState
-  }
-  case CONSTANTS.FILM_QUIZ_DATA: {
-    newState = Object.assign({}, state, {
-      filmQuizData: action.payload
-    })
-    return newState
-  }
-  case CONSTANTS.GOT_USER: {
-    newState = Object.assign({}, state, {
-      user: action.payload
-    })
-    return newState
-  }
-  case CONSTANTS.SELECT_QUIZ: {
-    newState = Object.assign({}, state, {
-      selectedQuiz: action.payload
-    })
-    return newState
-  }
-  case CONSTANTS.CURRENT_SCORE: {
-    newState = Object.assign({}, state, {
-      currentScore: (state.currentScore += 1)
-    })
-    return newState
-  }
-  case CONSTANTS.RESET_SCORE: {
-    newState = Object.assign({}, state, {
-      currentScore: (state.currentScore = 0)
-    })
-    return newState
-  }
-  default:
-    return state
+    case CONSTANTS.QUIZ_DATA: {
+      newState = Object.assign({}, state, {
+        quizData: action.payload
+      })
+      return newState
+    }
+    case CONSTANTS.FILM_QUIZ_DATA: {
+      newState = Object.assign({}, state, {
+        filmQuizData: action.payload
+      })
+      return newState
+    }
+    case CONSTANTS.GOT_USER: {
+      newState = Object.assign({}, state, {
+        user: action.payload
+      })
+      return newState
+    }
+    case CONSTANTS.SELECT_QUIZ: {
+      newState = Object.assign({}, state, {
+        selectedQuiz: action.payload
+      })
+      return newState
+    }
+    default:
+      return state
   }
 }
 

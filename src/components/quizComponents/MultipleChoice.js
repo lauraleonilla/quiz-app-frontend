@@ -15,9 +15,9 @@ const MultipleChoice = ({ currentQuestion, nextQuestionHandler }) => {
   const renderAnswers = () => {
     currentQuestion.incorrect_answers.push(currentQuestion.correct_answer)
     const shuffled = shuffle(currentQuestion.incorrect_answers)
-    return shuffled.map(answer => (
+    return shuffled.map((answer, index) => (
       <Button
-        key={atob(answer)}
+        key={index}
         basic
         color='purple'
         content={atob(answer)}
