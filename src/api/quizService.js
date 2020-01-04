@@ -1,13 +1,11 @@
 import axios from 'axios'
 import CONSTANTS from '../constants'
 
-// const create = async newObject => {
-//   const config = {
-//     headers: { Authorization: token }
-//   }
-//   const response = await axios.post(baseUrl, newObject, config)
-//   return response.data
-// }
+let token = null
+
+const setToken = newToken => {
+  token = `bearer ${newToken}`
+}
 
 const getQuizdata = async selectedQuiz => {
   let baseUrl = null
@@ -37,7 +35,10 @@ const getQuizdata = async selectedQuiz => {
 
 const saveScore = async payload => {
   const scoreUrl = '/api/quiz/score'
-  const response = await axios.post(scoreUrl, payload)
+  const config = {
+    headers: { Authorization: token }
+  }
+  const response = await axios.post(scoreUrl, payload, config)
   let user = window.localStorage.getItem('loggedInUser')
   user = JSON.parse(user)
   const updateScore = user.scores.find(score => {
@@ -55,4 +56,4 @@ const saveScore = async payload => {
   return response.data
 }
 
-export default { getQuizdata, saveScore }
+export default { getQuizdata, saveScore, setToken }

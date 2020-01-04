@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Routes from './routes'
 import LoginRoutes from './loginroutes'
 import CONSTANTS from './constants'
-import userService from './api/userService'
+import quizService from './api/quizService'
 import './App.scss'
 
 const App = props => {
@@ -15,7 +15,7 @@ const App = props => {
       const user = JSON.parse(loggedUserJSON)
       if (user && user.token) {
         gotUser(user)
-        userService.setToken(user.token)
+        quizService.setToken(user.token)
       }
     }
   }, [gotUser])

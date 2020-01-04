@@ -10,16 +10,19 @@ import './QuizPage.scss'
 const QuizPage = props => {
   const [currentQuestion, setcurrentQuestion] = useState(0)
 
-  const { gotQuizData, match } = props
+  const { gotQuizData, match, setScore } = props
 
   useEffect(() => {
     const fetchData = async () => {
       const selectedQuiz = match.params.selectedQuiz
       const data = await quizService.getQuizdata(selectedQuiz)
       gotQuizData(data)
+      return function cleanup() {
+        setScore(null)
+      }
     }
     fetchData()
-  }, [gotQuizData, match])
+  }, [gotQuizData, match, setScore])
 
   const nextQuestionHandler = async answer => {
     const correctAnswer = atob(props.quizData[currentQuestion].correct_answer)
@@ -34,9 +37,11 @@ const QuizPage = props => {
         score: props.currentScore
       }
       const res = await quizService.saveScore(payload)
+      if (!res.message) {
+        const concatScores = props.user.scores.concat(res)
+        props.gotUser({ ...props.user, scores: concatScores })
+      }
       setcurrentQuestion(null)
-      const concatScores = props.user.scores.concat(res)
-      props.gotUser({ ...props.user, scores: concatScores })
     } else {
       setcurrentQuestion(newIndex)
     }
