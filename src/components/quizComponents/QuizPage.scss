@@ -1,0 +1,17 @@
+.quizWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.quizTypeContainer {
+    margin-top: 50px;
+    text-align: initial;
+    display: grid;
+    grid-template-columns: 200px 200px;
+    grid-gap: 20px;
+}
+
+.questionContainer {
+    margin: 10px;
+}

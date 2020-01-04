@@ -19,6 +19,9 @@ const Header = props => {
         <Menu.Item>
           <Link to='/chat'>Chat</Link>
         </Menu.Item>
+        <Menu.Item>
+          <Link to='/ownQuizzes'>Own quizzes</Link>
+        </Menu.Item>
         <Menu.Item className='profileBtn'>
           <Link to='/profile'>My profile</Link>
         </Menu.Item>

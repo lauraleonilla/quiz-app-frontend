@@ -1,4 +1,5 @@
 import axios from 'axios'
+import CONSTANTS from '../constants'
 
 // const create = async newObject => {
 //   const config = {
@@ -8,16 +9,28 @@ import axios from 'axios'
 //   return response.data
 // }
 
-const getAll = async () => {
-  const baseUrl =
-    'https://opentdb.com/api.php?amount=10&category=27&type=boolean'
-  const data = await axios.get(baseUrl)
-  return data.data.results
-}
-
-const getAllFilmQuiz = async () => {
-  const baseUrl =
-    'https://opentdb.com/api.php?amount=10&category=11&type=boolean'
+const getQuizdata = async selectedQuiz => {
+  let baseUrl = null
+  if (selectedQuiz === CONSTANTS.ANIMAL_QUIZ) {
+    baseUrl =
+      'https://opentdb.com/api.php?amount=10&category=27&type=boolean&encode=base64'
+  }
+  if (selectedQuiz === CONSTANTS.FILM_QUIZ) {
+    baseUrl =
+      'https://opentdb.com/api.php?amount=10&category=11&type=boolean&encode=base64'
+  }
+  if (selectedQuiz === CONSTANTS.BOOK_QUIZ) {
+    baseUrl =
+      'https://opentdb.com/api.php?amount=10&category=10&difficulty=easy&type=multiple&encode=base64'
+  }
+  if (selectedQuiz === CONSTANTS.COMPUTER_QUIZ) {
+    baseUrl =
+      'https://opentdb.com/api.php?amount=10&category=18&type=boolean&encode=base64'
+  }
+  if (selectedQuiz === CONSTANTS.GENERAL_QUIZ) {
+    baseUrl =
+      'https://opentdb.com/api.php?amount=10&category=9&type=multiple&encode=base64'
+  }
   const data = await axios.get(baseUrl)
   return data.data.results
 }
@@ -42,4 +55,4 @@ const saveScore = async payload => {
   return response.data
 }
 
-export default { getAll, saveScore, getAllFilmQuiz }
+export default { getQuizdata, saveScore }
