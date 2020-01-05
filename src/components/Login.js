@@ -9,6 +9,7 @@ import ErrorMessage from './ErrorMessage'
 import CONSTANTS from '../constants'
 import loginService from '../api/loginService'
 import FacebookLogin from 'react-facebook-login'
+import quizService from '../api/quizService'
 import './Login.scss'
 
 const Login = props => {
@@ -26,6 +27,7 @@ const Login = props => {
       const user = await loginService.login(payload)
       if (user) {
         props.gotUser(user)
+        quizService.setToken(user.token)
       }
     } catch (error) {
       setErrorMessge(error.response.data.error)
@@ -57,6 +59,7 @@ const Login = props => {
           image: response.picture.data.url
         }
         props.gotUser(userToSave)
+        quizService.setToken(userToSave.token)
         window.localStorage.setItem('loggedInUser', JSON.stringify(userToSave))
       } catch (error) {
         setErrorMessge(error.response.data.error)

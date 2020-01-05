@@ -33,8 +33,9 @@ const QuizPage = props => {
     if (!response.message) {
       const concatScores = props.user.scores.concat(response)
       props.gotUser({ ...props.user, scores: concatScores })
+      setMessage(`You scored ${response.score}!`)
     } else {
-      setMessage(`Your new score is ${response.newScore.score}`)
+      setMessage(`Your new score is ${response.newScore.score}!`)
     }
   }
 
