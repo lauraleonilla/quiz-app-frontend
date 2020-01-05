@@ -36,6 +36,13 @@ const QuizPage = props => {
       setMessage(`You scored ${response.score}!`)
     } else {
       setMessage(`Your new score is ${response.newScore.score}!`)
+      const updateScore = props.user.scores.find(score => {
+        return score.id === response.newScore.id
+      })
+      const index = props.user.scores.indexOf(updateScore)
+      props.user.scores.splice(index, 1)
+      props.user.scores.push(response.newScore)
+      props.gotUser({ ...props.user })
     }
   }
 

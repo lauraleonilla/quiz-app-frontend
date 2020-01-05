@@ -41,13 +41,13 @@ const saveScore = async payload => {
   const response = await axios.post(scoreUrl, payload, config)
   let user = window.localStorage.getItem('loggedInUser')
   user = JSON.parse(user)
-  const updateScore = user.scores.find(score => {
-    return score.id === response.data.id
-  })
-  if (updateScore) {
+  if (response.data.message) {
+    const updateScore = user.scores.find(score => {
+      return score.id === response.data.newScore.id
+    })
     const index = user.scores.indexOf(updateScore)
     user.scores.splice(index, 1)
-    user.scores.push(response.data)
+    user.scores.push(response.data.newScore)
     window.localStorage.setItem('loggedInUser', JSON.stringify(user))
   } else {
     user.scores.push(response.data)
