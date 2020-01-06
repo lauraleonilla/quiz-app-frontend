@@ -14,6 +14,7 @@ const Chat = () => {
   useEffect(() => {
     const fetchData = async () => {
       const data = await chatService.getChatmessages()
+      console.log(data)
       setChatMessages(data)
     }
     fetchData()
@@ -21,7 +22,17 @@ const Chat = () => {
 
   const renderMessages = () => {
     return chatMessages.map((message, index) => {
-      return <p key={index}>{message.message}</p>
+      return (
+        <span key={index} className='chatMessage'>
+          <p className='userName'>{message.time}: </p>
+          {message.user.username ? (
+            <p className='userName'>{message.user.username}: </p>
+          ) : (
+            <p className='userName'>{message.user.name}: </p>
+          )}
+          <p className='messagetext'>{message.message}</p>
+        </span>
+      )
     })
   }
 
