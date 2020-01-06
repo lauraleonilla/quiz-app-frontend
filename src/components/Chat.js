@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import moment from 'moment'
 import chatService from '../api/chatService'
 import { Button } from 'semantic-ui-react'
 import { Input } from 'semantic-ui-react'
@@ -24,7 +25,9 @@ const Chat = () => {
     return chatMessages.map((message, index) => {
       return (
         <span key={index} className='chatMessage'>
-          <p className='userName'>{message.time}: </p>
+          <p className='timeStamp'>
+            {moment.unix(message.time).format('YYYY/MM/DD HH:mm')}
+          </p>
           {message.user.username ? (
             <p className='userName'>{message.user.username}: </p>
           ) : (
@@ -47,7 +50,8 @@ const Chat = () => {
   const messageHandler = async event => {
     event.preventDefault()
     const payload = {
-      message: newMessage
+      message: newMessage,
+      time: moment().unix()
     }
     try {
       chatService.sendChatMessage(payload)

@@ -1,55 +1,65 @@
 @import '../colors.scss';
 
 .chatWrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding-left: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 50px;
 }
 
 .chatForm {
-    display: flex;
-    justify-content: flex-start;
-    margin: 20px;
+  display: flex;
+  justify-content: flex-start;
+  margin: 20px;
 
-    div {
-        width: 400px;
-        margin-right: 10px;
-    }
+  div {
+    width: 400px;
+    margin-right: 10px;
+  }
 
-    button {
-        width: 150px;
-        height: 37px;
-    }
+  button {
+    width: 150px;
+    height: 37px;
+  }
 }
 
 .messageContainer {
-    max-height: 500px;
-    max-width: 1200px;
-    margin: 20px;
-    padding: 20px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    font-size: 16px;
-    border: 1px solid $lightGray;
+  height: 500px;
+  width: 1200px;
+  margin: 20px;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  font-size: 16px;
+  border: 1px solid $lightGray;
 
-    .messagetext {
-        display: block;
-        word-break: break-word;
-        text-align: initial;
-    }
+  .messagetext {
+    display: block;
+    word-break: break-word;
+    text-align: initial;
+  }
 }
 
 .chatMessage {
-    display: grid;
-    grid-template-columns: auto 150px auto;
-    margin-bottom: 10px;
+  display: grid;
+  grid-template-columns: 110px auto auto;
+  margin-bottom: 10px;
+  align-items: baseline;
 
-    .userName {
-        margin-right: 5px;
-        white-space: nowrap;
-        text-align: initial;
-    }
+  .userName {
+    margin-right: 10px;
+    white-space: nowrap;
+    text-align: initial;
+    color: $blue;
+  }
+  .timeStamp {
+    margin-right: 5px;
+    white-space: nowrap;
+    text-align: initial;
+    color: $blueViolet;
+    font-size: 12px;
+  }
 }
