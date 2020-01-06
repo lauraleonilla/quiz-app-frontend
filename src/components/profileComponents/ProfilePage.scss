@@ -1,4 +1,14 @@
-.container {
+img {
+    margin-bottom: 20px;
+}
+
+.pageWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.profileContainer {
     width: 300px;
     display: grid;
     justify-content: flex-start;
@@ -8,11 +18,13 @@
 }
 
 .scoreBoard {
+    width: 1000px;
     margin: 15px 0px;
 }
 
 .scoreColumn {
     margin-bottom: 5px;
+
     h3 {
         margin-bottom: 0px;
     }

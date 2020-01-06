@@ -23,21 +23,23 @@ const ProfilePage = ({ user }) => {
   }
 
   return (
-    <div className='container'>
-      {user.username ? <p className='title'>{user.username}</p> : null}
-      {user.name ? <p className='title'>{user.name}</p> : null}
-      {user.image ? (
-        <img src={user.image} alt={user.image} />
-      ) : (
-        <img className='image' src={Cat} alt='You!' />
-      )}
+    <div className='pageWrapper'>
+      <div className='profileContainer'>
+        {user.username ? <p className='title'>{user.username}</p> : null}
+        {user.name ? <p className='title'>{user.name}</p> : null}
+        {user.image ? (
+          <img src={user.image} alt={user.image} />
+        ) : (
+          <img className='image' src={Cat} alt='You!' />
+        )}
+        <Button content='Edit profile' basic color='purple' />
+      </div>
       <div className='scoreBoard'>
         <Segment raised>
           <h2>Scoreboard</h2>
           {getScores()}
         </Segment>
       </div>
-      <Button content='Edit profile' basic color='purple' />
     </div>
   )
 }
