@@ -4,6 +4,7 @@ import Routes from './routes'
 import LoginRoutes from './loginroutes'
 import CONSTANTS from './constants'
 import quizService from './api/quizService'
+import chatService from './api/chatService'
 import './App.scss'
 
 const App = props => {
@@ -16,6 +17,7 @@ const App = props => {
       if (user && user.token) {
         gotUser(user)
         quizService.setToken(user.token)
+        chatService.setToken(user.token)
       }
     }
   }, [gotUser])
