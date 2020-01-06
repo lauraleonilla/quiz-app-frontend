@@ -1,11 +1,6 @@
 import axios from 'axios'
+import store from '../store'
 const baseUrl = '/api/chat'
-
-let token = null
-
-const setToken = newToken => {
-  token = `bearer ${newToken}`
-}
 
 const getChatmessages = async () => {
   const { data } = await axios.get(baseUrl)
@@ -13,11 +8,12 @@ const getChatmessages = async () => {
 }
 
 const sendChatMessage = async payload => {
+  const state = store.getState()
   const config = {
-    headers: { Authorization: token }
+    headers: { Authorization: `bearer ${state.appState.token}` }
   }
   const response = await axios.post(baseUrl, payload, config)
   return response
 }
 
-export default { getChatmessages, setToken, sendChatMessage }
+export default { getChatmessages, sendChatMessage }

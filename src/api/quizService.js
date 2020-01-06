@@ -1,11 +1,6 @@
 import axios from 'axios'
+import store from '../store'
 import CONSTANTS from '../constants'
-
-let token = null
-
-const setToken = newToken => {
-  token = `bearer ${newToken}`
-}
 
 const getQuizdata = async selectedQuiz => {
   let baseUrl = null
@@ -35,8 +30,9 @@ const getQuizdata = async selectedQuiz => {
 
 const saveScore = async payload => {
   const scoreUrl = '/api/quiz/score'
+  const state = store.getState()
   const config = {
-    headers: { Authorization: token }
+    headers: { Authorization: `bearer ${state.appState.token}` }
   }
   const response = await axios.post(scoreUrl, payload, config)
   let user = window.localStorage.getItem('loggedInUser')
@@ -56,4 +52,4 @@ const saveScore = async payload => {
   return response.data
 }
 
-export default { getQuizdata, saveScore, setToken }
+export default { getQuizdata, saveScore }
