@@ -7,6 +7,8 @@ import './quizForm.scss'
 
 const QuizForm = () => {
   const [fieldText, setFieldText] = useState('')
+  const [numberOfQuestions, setNumberOfQuestions] = useState()
+  console.log(`Number of questions`, numberOfQuestions)
 
   const newTextHandler = event => {
     setFieldText(event.target.value)
@@ -14,6 +16,36 @@ const QuizForm = () => {
 
   const handleresetText = () => {
     setFieldText('')
+  }
+
+  const renderQuestionField = numberOfQuestions => {
+    if (numberOfQuestions && numberOfQuestions.value) {
+      const questionsForms = new Array(numberOfQuestions.value)
+      console.log(questionsForms)
+    }
+    return (
+      <div>
+        <Input
+          className='inputField'
+          icon={<Icon name='delete' link onClick={handleresetText} />}
+          placeholder='Question'
+          value={fieldText}
+          onChange={newTextHandler}
+        />
+        <Button
+          className='loginBtn'
+          content='Save'
+          type='submit'
+          basic
+          color='purple'
+        />
+      </div>
+    )
+  }
+
+  const handleDropDownChange = e => {
+    setNumberOfQuestions({ value: e.target.textContent })
+    renderQuestionField(e.target.textContent)
   }
 
   const renderDropDown = () => {
@@ -28,6 +60,7 @@ const QuizForm = () => {
           fluid
           selection
           options={options}
+          onChange={handleDropDownChange}
         />
       </div>
     )
@@ -44,23 +77,9 @@ const QuizForm = () => {
 
   return (
     <div>
-      <form>
-        {renderDropDown()}
-        <Input
-          className='inputField'
-          icon={<Icon name='delete' link onClick={handleresetText} />}
-          placeholder='Question'
-          value={fieldText}
-          onChange={newTextHandler}
-        />
-        <Button
-          className='loginBtn'
-          content='Save'
-          type='submit'
-          basic
-          color='purple'
-        />
-      </form>
+      {renderDropDown()}
+      {numberOfQuestions ? renderQuestionField() : null}
+      <form></form>
     </div>
   )
 }
