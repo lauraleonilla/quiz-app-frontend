@@ -18,11 +18,7 @@ const QuizForm = () => {
     setFieldText('')
   }
 
-  const renderQuestionField = numberOfQuestions => {
-    if (numberOfQuestions && numberOfQuestions.value) {
-      const questionsForms = new Array(numberOfQuestions.value)
-      console.log(questionsForms)
-    }
+  const QuestionComponent = () => {
     return (
       <div>
         <Input
@@ -43,8 +39,19 @@ const QuizForm = () => {
     )
   }
 
+  const renderQuestionField = numberOfQuestions => {
+    const rows = []
+    console.log(numberOfQuestions, rows)
+    for (let i = 0; i < numberOfQuestions; i++) {
+      rows.push(<QuestionComponent />)
+    }
+    return rows.map((e, index) => {
+      return <div key={index}>{e}</div>
+    })
+  }
+
   const handleDropDownChange = e => {
-    setNumberOfQuestions({ value: e.target.textContent })
+    setNumberOfQuestions(e.target.textContent)
     renderQuestionField(e.target.textContent)
   }
 
