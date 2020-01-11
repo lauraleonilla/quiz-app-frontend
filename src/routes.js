@@ -9,6 +9,7 @@ import ProfilePage from './components/profileComponents/ProfilePage'
 import QuizPage from './components/quizComponents/QuizPage'
 import NotFoundPage from './components/NotFoundPage'
 import Register from './components/Register'
+import OwnQuiz from './components/onwQuiz'
 
 const Routes = () => {
   return (
@@ -22,6 +23,7 @@ const Routes = () => {
           <Route exact path='/login' render={() => <Login />} />
           <Route exact path='/register' render={() => <Register />} />
           <Route exact path='/profile' render={() => <ProfilePage />} />
+          <Route exact path='/ownQuizzes' render={() => <OwnQuiz />} />
           <Route
             exact
             path={'/quiz/:selectedQuiz'}
