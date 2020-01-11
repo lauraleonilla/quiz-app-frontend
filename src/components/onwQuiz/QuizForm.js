@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
-import { Button } from 'semantic-ui-react'
-import { Input } from 'semantic-ui-react'
-import { Icon } from 'semantic-ui-react'
+import Header from './Header'
+import MultiQuizInput from './MultiQuizInput'
 import { Dropdown } from 'semantic-ui-react'
 import './quizForm.scss'
 
 const QuizForm = () => {
   const [fieldText, setFieldText] = useState('')
   const [numberOfQuestions, setNumberOfQuestions] = useState('')
+  const [quizType, setQuizType] = useState('')
 
   const newTextHandler = event => {
     setFieldText(event.target.value)
@@ -17,32 +17,17 @@ const QuizForm = () => {
     setFieldText('')
   }
 
-  const QuestionComponent = () => {
-    return (
-      <div>
-        <Input
-          className='inputField'
-          icon={<Icon name='delete' link onClick={handleresetText} />}
-          placeholder='Question'
-          value={fieldText}
-          onChange={newTextHandler}
-        />
-        <Button
-          className='loginBtn'
-          content='Save'
-          type='submit'
-          basic
-          color='purple'
-        />
-      </div>
-    )
-  }
-
   const renderQuestionField = () => {
     if (numberOfQuestions) {
       const rows = []
       for (let i = 0; i < numberOfQuestions; i++) {
-        rows.push(<QuestionComponent />)
+        rows.push(
+          <MultiQuizInput
+            handleresetText={handleresetText}
+            newTextHandler={newTextHandler}
+            fieldText={fieldText}
+          />
+        )
       }
       return (
         <div>
@@ -76,6 +61,10 @@ const QuizForm = () => {
     )
   }
 
+  const handleRadioButnChange = e => {
+    setQuizType(e.target.textContent)
+  }
+
   //   const messageHandler = async event => {
   //     event.preventDefault()
   //     const payload = {
@@ -84,9 +73,12 @@ const QuizForm = () => {
   //     }
   //     await chatService.sendChatMessage(payload)
   //   }
-
   return (
     <div>
+      <Header
+        quizType={quizType}
+        handleRadioButnChange={handleRadioButnChange}
+      />
       {renderDropDown()}
       <form>{renderQuestionField()}</form>
     </div>
