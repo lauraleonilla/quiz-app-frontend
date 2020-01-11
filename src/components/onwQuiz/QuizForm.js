@@ -7,8 +7,7 @@ import './quizForm.scss'
 
 const QuizForm = () => {
   const [fieldText, setFieldText] = useState('')
-  const [numberOfQuestions, setNumberOfQuestions] = useState()
-  console.log(`Number of questions`, numberOfQuestions)
+  const [numberOfQuestions, setNumberOfQuestions] = useState('')
 
   const newTextHandler = event => {
     setFieldText(event.target.value)
@@ -39,20 +38,24 @@ const QuizForm = () => {
     )
   }
 
-  const renderQuestionField = numberOfQuestions => {
-    const rows = []
-    console.log(numberOfQuestions, rows)
-    for (let i = 0; i < numberOfQuestions; i++) {
-      rows.push(<QuestionComponent />)
+  const renderQuestionField = () => {
+    if (numberOfQuestions) {
+      const rows = []
+      for (let i = 0; i < numberOfQuestions; i++) {
+        rows.push(<QuestionComponent />)
+      }
+      return (
+        <div>
+          {rows.map((row, index) => (
+            <div key={index}>{row}</div>
+          ))}
+        </div>
+      )
     }
-    return rows.map((e, index) => {
-      return <div key={index}>{e}</div>
-    })
   }
 
   const handleDropDownChange = e => {
     setNumberOfQuestions(e.target.textContent)
-    renderQuestionField(e.target.textContent)
   }
 
   const renderDropDown = () => {
@@ -85,8 +88,7 @@ const QuizForm = () => {
   return (
     <div>
       {renderDropDown()}
-      {numberOfQuestions ? renderQuestionField() : null}
-      <form></form>
+      <form>{renderQuestionField()}</form>
     </div>
   )
 }
