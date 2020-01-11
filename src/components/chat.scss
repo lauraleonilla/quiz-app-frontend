@@ -1,6 +1,7 @@
 @import '../colors.scss';
 
 .chatWrapper {
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -23,16 +24,14 @@
 }
 
 .messageContainer {
-  min-height: 300px;
-  max-height: 500px;
-  width: 1200px;
-  margin-bottom: 20px;
-  padding: 20px;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: flex-end;
+  height: 550px;
+  width: 1200px;
+  margin-bottom: 20px;
+  padding: 20px;
+  overflow-y: scroll;
   font-size: 16px;
   border: 1px solid $lightGray;
 
@@ -55,6 +54,7 @@
     text-align: initial;
     color: $blue;
   }
+
   .timeStamp {
     margin-right: 5px;
     white-space: nowrap;
