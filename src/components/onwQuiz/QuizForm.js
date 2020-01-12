@@ -64,6 +64,7 @@ const QuizForm = () => {
   const handleRadioButnChange = e => {
     setQuizType(e.target.textContent)
   }
+  console.log(quizType)
 
   //   const messageHandler = async event => {
   //     event.preventDefault()
@@ -80,7 +81,9 @@ const QuizForm = () => {
         handleRadioButnChange={handleRadioButnChange}
       />
       {renderDropDown()}
-      <form>{renderQuestionField()}</form>
+      <form>
+        {quizType === 'Multiple choice' ? renderQuestionField() : null}
+      </form>
     </div>
   )
 }

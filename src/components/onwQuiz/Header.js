@@ -9,10 +9,10 @@ const Header = ({ quizType, handleRadioButnChange }) => {
         <Form.Field>Selected value:</Form.Field>
         <Form.Field>
           <Radio
-            label='Multipple choice'
+            label='Multiple choice'
             name='radioGroup'
             value='multiple'
-            checked={quizType === 'Multipple choice'}
+            checked={quizType === 'Multiple choice'}
             onChange={handleRadioButnChange}
           />
         </Form.Field>
