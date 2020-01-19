@@ -3,6 +3,7 @@ export default {
     user: null,
     token: null,
     quizData: [],
-    selectedQuiz: null
+    selectedQuiz: null,
+    booleanQuizData: []
   }
 }

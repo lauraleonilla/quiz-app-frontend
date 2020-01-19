@@ -1,16 +1,22 @@
 import React, { useState } from 'react'
 import Header from './Header'
+import { connect } from 'react-redux'
+import { Input } from 'semantic-ui-react'
+import { Icon } from 'semantic-ui-react'
 import MultiQuizInput from './MultiQuizInput'
 import BooleanQuizInput from './BooleanQuizInput'
+import { Button } from 'semantic-ui-react'
 import { Dropdown } from 'semantic-ui-react'
+import quizService from '../../api/userQuizService'
 import './quizForm.scss'
 
-const QuizForm = () => {
+const QuizForm = props => {
   const [fieldText, setFieldText] = useState('')
   const [numberOfQuestions, setNumberOfQuestions] = useState('')
   const [numberOfAnswers, setNumberOfAnswers] = useState('')
   const [quizType, setQuizType] = useState('')
   const [error, setError] = useState('')
+  const [quizTitle, setQuizTitle] = useState('')
 
   const newTextHandler = event => {
     setFieldText(event.target.value)
@@ -20,11 +26,23 @@ const QuizForm = () => {
     setFieldText('')
   }
 
+  const titleHandler = event => {
+    setQuizTitle(event.target.value)
+  }
+
   const errorHandler = errorMessage => {
     setError(errorMessage)
     setTimeout(() => {
       setError('')
     }, 3000)
+  }
+
+  const saveQuizHandler = async () => {
+    const payload = {
+      quizTitle: quizTitle,
+      questions: props.booleanQuizData
+    }
+    await quizService.createBooleanQuiz(payload)
   }
 
   const renderQuestionField = () => {
@@ -46,8 +64,7 @@ const QuizForm = () => {
         rows.push(
           <BooleanQuizInput
             handleresetText={handleresetText}
-            newTextHandler={newTextHandler}
-            fieldText={fieldText}
+            quizTitle={quizTitle}
           />
         )
       }
@@ -119,16 +136,36 @@ const QuizForm = () => {
   //     }
   //     await chatService.sendChatMessage(payload)
   //   }
+
   return (
-    <div>
+    <div className='wrapper'>
       <Header
         quizType={quizType}
         handleRadioButnChange={handleRadioButnChange}
       />
+      <Input
+        className='inputField'
+        icon={<Icon name='delete' link onClick={handleresetText} />}
+        placeholder='Quiz title'
+        value={quizTitle}
+        onChange={titleHandler}
+      />
       {renderDropDown()}
       {renderQuestionField()}
+      <Button
+        className='saveBtn'
+        content='Save'
+        type='submit'
+        basic
+        color='purple'
+        onClick={() => saveQuizHandler()}
+      />
     </div>
   )
 }
 
-export default QuizForm
+const mapStateToProps = state => ({
+  booleanQuizData: state.appState.booleanQuizData
+})
+
+export default connect(mapStateToProps)(QuizForm)

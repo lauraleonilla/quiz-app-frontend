@@ -11,5 +11,6 @@ export default {
   FILM_QUIZ: 'Film',
   BOOK_QUIZ: 'Books',
   COMPUTER_QUIZ: 'Computers',
-  GENERAL_QUIZ: 'General'
+  GENERAL_QUIZ: 'General',
+  BOOLEAN_QUIZ_DATA: 'BOOLEAN_QUIZ_DATA'
 }

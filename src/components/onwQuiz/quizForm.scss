@@ -1,3 +1,8 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
 .quizFormContainer {
     margin: 20px;
     display: flex;
@@ -7,7 +12,7 @@
 
 .dropDown {
     width: 400px;
-    margin: 20px 0px;
+    margin-bottom: 20px;
     display: flex;
     flex-direction: column;
     align-items: baseline;
@@ -32,6 +37,7 @@
 .quizSelectionForm {
     height: 100px;
     margin-top: 20px;
+    margin-bottom: 20px;
     text-align: initial;
     display: flex;
     flex-direction: column;
