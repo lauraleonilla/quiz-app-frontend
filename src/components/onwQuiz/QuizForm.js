@@ -8,7 +8,9 @@ import './quizForm.scss'
 const QuizForm = () => {
   const [fieldText, setFieldText] = useState('')
   const [numberOfQuestions, setNumberOfQuestions] = useState('')
+  const [numberOfAnswers, setNumberOfAnswers] = useState('')
   const [quizType, setQuizType] = useState('')
+  const [error, setError] = useState('')
 
   const newTextHandler = event => {
     setFieldText(event.target.value)
@@ -16,6 +18,13 @@ const QuizForm = () => {
 
   const handleresetText = () => {
     setFieldText('')
+  }
+
+  const errorHandler = errorMessage => {
+    setError(errorMessage)
+    setTimeout(() => {
+      setError('')
+    }, 3000)
   }
 
   const renderQuestionField = () => {
@@ -51,8 +60,16 @@ const QuizForm = () => {
     )
   }
 
-  const handleDropDownChange = e => {
-    setNumberOfQuestions(e.target.textContent)
+  const handleQuestionDropDownChange = e => {
+    !quizType
+      ? errorHandler('Select a quiz type')
+      : setNumberOfQuestions(e.target.textContent)
+  }
+
+  const handleAnswerDropDownChange = e => {
+    !quizType
+      ? errorHandler('Select a quiz type')
+      : setNumberOfQuestions(e.target.textContent)
   }
 
   const renderDropDown = () => {
@@ -62,13 +79,29 @@ const QuizForm = () => {
     }
     return (
       <div className='dropDown'>
-        <Dropdown
-          placeholder='Select the number of questions'
-          fluid
-          selection
-          options={options}
-          onChange={handleDropDownChange}
-        />
+        <p style={{ color: 'red' }}>{error}</p>
+        <div className='dropDownWrapper'>
+          <p>Number of questions</p>
+          <Dropdown
+            placeholder='Select the number of questions'
+            fluid
+            selection
+            options={options}
+            onChange={handleQuestionDropDownChange}
+          />
+        </div>
+        {quizType === 'Multiple choice' ? (
+          <div className='dropDownWrapper'>
+            <p>Number of answer choices</p>
+            <Dropdown
+              placeholder='Select the number of answers'
+              fluid
+              selection
+              options={options}
+              onChange={handleAnswerDropDownChange}
+            />
+          </div>
+        ) : null}
       </div>
     )
   }
