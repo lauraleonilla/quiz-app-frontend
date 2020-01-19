@@ -36,6 +36,7 @@ const QuizForm = () => {
             handleresetText={handleresetText}
             newTextHandler={newTextHandler}
             fieldText={fieldText}
+            numberOfAnswers={numberOfAnswers}
           />
         )
       }
@@ -67,9 +68,9 @@ const QuizForm = () => {
   }
 
   const handleAnswerDropDownChange = e => {
-    !quizType
+    quizType !== 'Multiple choice'
       ? errorHandler('Select a quiz type')
-      : setNumberOfQuestions(e.target.textContent)
+      : setNumberOfAnswers(e.target.textContent)
   }
 
   const renderDropDown = () => {
