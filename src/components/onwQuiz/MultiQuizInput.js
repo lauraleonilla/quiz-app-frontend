@@ -4,11 +4,13 @@ import CONSTANTS from '../../constants'
 import { Button } from 'semantic-ui-react'
 import { Input } from 'semantic-ui-react'
 import { Icon } from 'semantic-ui-react'
+import AnswerField from './AnswerField'
 import './quizForm.scss'
 
 const MultiQuizInput = ({ numberOfAnswers, errorHandler, saveQuizData }) => {
   const [question, setQuestion] = useState('')
-  const [answerText, setAnswer] = useState('')
+  // const [answerText, setAnswer] = useState('')
+  const [answers, setAnswers] = useState([])
   const [questionSaved, setquestionSaved] = useState('')
 
   const newTextHandler = event => {
@@ -19,32 +21,43 @@ const MultiQuizInput = ({ numberOfAnswers, errorHandler, saveQuizData }) => {
     setQuestion('')
   }
 
-  const handleresetAnswer = () => {
-    setAnswer('')
-  }
-
-  const newAnswerHandler = event => {
-    setAnswer(event.target.value)
+  const newAnswerHandler = answer => {
+    const res = answers.findIndex(e => {
+      console.log('From loop', e, answer)
+      return e.index === answer.index
+    })
+    console.log('Here is index', res)
+    if (res !== -1) {
+      answers[res] = answer
+    }
+    console.log('Here is answer', answers[res])
+    setAnswers(answers)
   }
 
   const buttonHandler = () => {
+    console.log('ANSWRRSE', answers)
     if (question.length < 5) {
       errorHandler('Question should be at least 5 characters')
       return false
     }
-    saveQuizData({ question, answerText })
+    saveQuizData({ question, answers })
     setquestionSaved('Question saved!')
   }
   const renderAnswerInput = () => {
-    const rows = []
+    const rows = [
+      <AnswerField
+        key={'correctAnswer'}
+        index={'correct'}
+        newAnswerHandler={newAnswerHandler}
+        placeholder={'Correct answer'}
+      />
+    ]
     for (let i = 0; i < numberOfAnswers; i++) {
       rows.push(
-        <Input
-          className='inputField'
-          icon={<Icon name='delete' link onClick={() => handleresetAnswer()} />}
-          placeholder='Answer'
-          value={answerText}
-          onChange={newAnswerHandler}
+        <AnswerField
+          index={i}
+          newAnswerHandler={newAnswerHandler}
+          placeholder={'Incorrect answer'}
         />
       )
     }
