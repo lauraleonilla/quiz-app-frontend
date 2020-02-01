@@ -22,20 +22,20 @@ const MultiQuizInput = ({ numberOfAnswers, errorHandler, saveQuizData }) => {
   }
 
   const newAnswerHandler = answer => {
+    if (!answers.length) {
+      return setAnswers([answer])
+    }
     const res = answers.findIndex(e => {
-      console.log('From loop', e, answer)
       return e.index === answer.index
     })
-    console.log('Here is index', res)
-    if (res !== -1) {
-      answers[res] = answer
+    if (res === -1) {
+      return setAnswers([...answers, answer])
     }
-    console.log('Here is answer', answers[res])
-    setAnswers(answers)
+    answers[res] = answer
+    setAnswers([...answers])
   }
 
   const buttonHandler = () => {
-    console.log('ANSWRRSE', answers)
     if (question.length < 5) {
       errorHandler('Question should be at least 5 characters')
       return false

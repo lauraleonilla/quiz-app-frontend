@@ -5,7 +5,6 @@ import './quizForm.scss'
 
 function AnswerField({ placeholder, newAnswerHandler, index }) {
   const [answerText, setAnswer] = useState('')
-  console.log(index)
   const handleresetAnswer = () => {
     setAnswer('')
   }
