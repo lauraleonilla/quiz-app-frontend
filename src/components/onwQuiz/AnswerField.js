@@ -3,7 +3,7 @@ import { Input } from 'semantic-ui-react'
 import { Icon } from 'semantic-ui-react'
 import './quizForm.scss'
 
-function AnswerField({ placeholder, newAnswerHandler, index }) {
+function AnswerField({ placeholder, newAnswerHandler, index, correct }) {
   const [answerText, setAnswer] = useState('')
   const handleresetAnswer = () => {
     setAnswer('')
@@ -14,7 +14,7 @@ function AnswerField({ placeholder, newAnswerHandler, index }) {
     newAnswerHandler({
       index: index,
       answer: event.target.value,
-      correct: placeholder
+      correct: correct
     })
   }
 

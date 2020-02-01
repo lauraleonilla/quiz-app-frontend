@@ -11,20 +11,12 @@ import quizService from '../../api/userQuizService'
 import './quizForm.scss'
 
 const QuizForm = props => {
-  const [fieldText, setFieldText] = useState('')
   const [numberOfQuestions, setNumberOfQuestions] = useState('')
   const [numberOfAnswers, setNumberOfAnswers] = useState('')
   const [quizType, setQuizType] = useState('')
   const [error, setError] = useState('')
   const [quizTitle, setQuizTitle] = useState('')
-
-  const newTextHandler = event => {
-    setFieldText(event.target.value)
-  }
-
-  const handleresetText = () => {
-    setFieldText('')
-  }
+  const [quizSaved, setquizSaved] = useState('')
 
   const handleresetTitle = () => {
     setQuizTitle('')
@@ -70,8 +62,13 @@ const QuizForm = props => {
           : await quizService.createMultiChoiceQuiz(payload)
       if (response.error) {
         errorHandler(response.error.message)
+      } else {
+        setquizSaved('Quiz saved!')
       }
     }
+    setQuizType('')
+    setQuizTitle('')
+    setNumberOfQuestions('')
   }
 
   const renderQuestionField = () => {
@@ -80,8 +77,6 @@ const QuizForm = props => {
       for (let i = 0; i < numberOfQuestions; i++) {
         rows.push(
           <MultiQuizInput
-            handleresetText={handleresetText}
-            newTextHandler={newTextHandler}
             numberOfAnswers={numberOfAnswers}
             errorHandler={errorHandler}
           />
@@ -175,6 +170,7 @@ const QuizForm = props => {
         color='purple'
         onClick={() => saveQuizHandler()}
       />
+      <h2 style={{ textAlign: 'initial' }}>{quizSaved}</h2>
     </div>
   )
 }

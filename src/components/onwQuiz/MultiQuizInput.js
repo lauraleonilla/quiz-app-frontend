@@ -9,7 +9,6 @@ import './quizForm.scss'
 
 const MultiQuizInput = ({ numberOfAnswers, errorHandler, saveQuizData }) => {
   const [question, setQuestion] = useState('')
-  // const [answerText, setAnswer] = useState('')
   const [answers, setAnswers] = useState([])
   const [questionSaved, setquestionSaved] = useState('')
 
@@ -50,6 +49,7 @@ const MultiQuizInput = ({ numberOfAnswers, errorHandler, saveQuizData }) => {
         index={'correct'}
         newAnswerHandler={newAnswerHandler}
         placeholder={'Correct answer'}
+        correct={true}
       />
     ]
     for (let i = 0; i < numberOfAnswers; i++) {
@@ -58,6 +58,7 @@ const MultiQuizInput = ({ numberOfAnswers, errorHandler, saveQuizData }) => {
           index={i}
           newAnswerHandler={newAnswerHandler}
           placeholder={'Incorrect answer'}
+          correct={false}
         />
       )
     }
