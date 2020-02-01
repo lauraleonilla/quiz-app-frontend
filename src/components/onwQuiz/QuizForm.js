@@ -23,7 +23,12 @@ const QuizForm = props => {
   }
 
   const handleresetText = () => {
+    console.log('I was called')
     setFieldText('')
+  }
+
+  const handleresetTitle = () => {
+    setQuizTitle('')
   }
 
   const titleHandler = event => {
@@ -40,6 +45,10 @@ const QuizForm = props => {
   const validateQuizInput = data => {
     if (data.quizTitle.length < 5) {
       errorHandler('Quiz title should be at least 5 characters')
+      return false
+    }
+    if (!data.questions.length) {
+      errorHandler('There are no saved questions')
       return false
     }
     return true
@@ -76,13 +85,7 @@ const QuizForm = props => {
     }
     if (quizType && quizType === 'True / False' && numberOfQuestions) {
       for (let i = 0; i < numberOfQuestions; i++) {
-        rows.push(
-          <BooleanQuizInput
-            handleresetText={handleresetText}
-            quizTitle={quizTitle}
-            errorHandler={errorHandler}
-          />
-        )
+        rows.push(<BooleanQuizInput errorHandler={errorHandler} />)
       }
     }
     return (
@@ -152,7 +155,7 @@ const QuizForm = props => {
       />
       <Input
         className='inputField'
-        icon={<Icon name='delete' link onClick={handleresetText} />}
+        icon={<Icon name='delete' link onClick={() => handleresetTitle()} />}
         placeholder='Quiz title'
         value={quizTitle}
         onChange={titleHandler}

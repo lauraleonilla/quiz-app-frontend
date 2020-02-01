@@ -10,9 +10,14 @@ import './quizForm.scss'
 const BooleanQuizInput = props => {
   const [question, setQuestion] = useState('')
   const [correctAnswer, setCorrectAnswer] = useState('')
+  const [questionSaved, setquestionSaved] = useState('')
 
   const newTextHandler = event => {
     setQuestion(event.target.value)
+  }
+
+  const handleresetText = () => {
+    setQuestion('')
   }
 
   const handleRadioButnChange = e => {
@@ -30,13 +35,14 @@ const BooleanQuizInput = props => {
       return false
     }
     props.saveQuizData({ question, correctAnswer })
+    setquestionSaved('Question saved!')
   }
 
   return (
     <div className='booleanWrapper'>
       <Input
         className='inputField'
-        icon={<Icon name='delete' link onClick={props.handleresetText} />}
+        icon={<Icon name='delete' link onClick={() => handleresetText()} />}
         placeholder='Question'
         value={question}
         onChange={newTextHandler}
@@ -71,6 +77,7 @@ const BooleanQuizInput = props => {
         color='purple'
         onClick={() => buttonHandler()}
       />
+      <p>{questionSaved}</p>
     </div>
   )
 }
