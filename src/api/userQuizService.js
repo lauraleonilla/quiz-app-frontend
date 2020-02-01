@@ -7,8 +7,12 @@ const createBooleanQuiz = async payload => {
   const config = {
     headers: { Authorization: `bearer ${state.appState.token}` }
   }
-  const response = await axios.post(baseUrl, payload, config)
-  return response.data
+  try {
+    const response = await axios.post(baseUrl, payload, config)
+    return response.data
+  } catch (error) {
+    return error.response.data
+  }
 }
 
 export default { createBooleanQuiz }

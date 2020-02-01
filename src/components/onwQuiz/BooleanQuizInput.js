@@ -25,6 +25,10 @@ const BooleanQuizInput = props => {
   }
 
   const buttonHandler = () => {
+    if (question.length < 5) {
+      props.errorHandler('Question should be at least 5 characters')
+      return false
+    }
     props.saveQuizData({ question, correctAnswer })
   }
 

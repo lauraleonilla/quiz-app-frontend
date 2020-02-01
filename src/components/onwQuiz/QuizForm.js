@@ -37,12 +37,27 @@ const QuizForm = props => {
     }, 3000)
   }
 
+  const validateQuizInput = data => {
+    if (data.quizTitle.length < 5) {
+      errorHandler('Quiz title should be at least 5 characters')
+      return false
+    }
+    return true
+  }
+
   const saveQuizHandler = async () => {
     const payload = {
       quizTitle: quizTitle,
       questions: props.booleanQuizData
     }
-    await quizService.createBooleanQuiz(payload)
+    if (!validateQuizInput(payload)) {
+      return false
+    } else {
+      const response = await quizService.createBooleanQuiz(payload)
+      if (response.error) {
+        errorHandler(response.error.message)
+      }
+    }
   }
 
   const renderQuestionField = () => {
@@ -65,6 +80,7 @@ const QuizForm = props => {
           <BooleanQuizInput
             handleresetText={handleresetText}
             quizTitle={quizTitle}
+            errorHandler={errorHandler}
           />
         )
       }
@@ -127,15 +143,6 @@ const QuizForm = props => {
   const handleRadioButnChange = e => {
     setQuizType(e.target.textContent)
   }
-
-  //   const messageHandler = async event => {
-  //     event.preventDefault()
-  //     const payload = {
-  //       message: newMessage,
-  //       time: moment().unix()
-  //     }
-  //     await chatService.sendChatMessage(payload)
-  //   }
 
   return (
     <div className='wrapper'>
