@@ -40,6 +40,12 @@ const appStateReducer = (state = initialState.appState, action) => {
       })
       return newState
     }
+    case CONSTANTS.MULTI_QUIZ_DATA: {
+      newState = Object.assign({}, state, {
+        multiQuizData: [...state.multiQuizData, action.payload]
+      })
+      return newState
+    }
     default:
       return state
   }

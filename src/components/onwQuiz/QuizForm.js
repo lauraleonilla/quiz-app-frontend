@@ -23,7 +23,6 @@ const QuizForm = props => {
   }
 
   const handleresetText = () => {
-    console.log('I was called')
     setFieldText('')
   }
 
@@ -55,14 +54,20 @@ const QuizForm = props => {
   }
 
   const saveQuizHandler = async () => {
-    const payload = {
-      quizTitle: quizTitle,
-      questions: props.booleanQuizData
+    const payload = { quizTitle: quizTitle, questions: null }
+    if (quizType === 'True / False') {
+      payload.questions = props.booleanQuizData
+    }
+    if (quizType === 'Multiple choice') {
+      payload.questions = props.multiQuizData
     }
     if (!validateQuizInput(payload)) {
       return false
     } else {
-      const response = await quizService.createBooleanQuiz(payload)
+      const response =
+        quizType === 'True / False'
+          ? await quizService.createBooleanQuiz(payload)
+          : await quizService.createMultiChoiceQuiz(payload)
       if (response.error) {
         errorHandler(response.error.message)
       }
@@ -77,8 +82,8 @@ const QuizForm = props => {
           <MultiQuizInput
             handleresetText={handleresetText}
             newTextHandler={newTextHandler}
-            fieldText={fieldText}
             numberOfAnswers={numberOfAnswers}
+            errorHandler={errorHandler}
           />
         )
       }
@@ -111,7 +116,7 @@ const QuizForm = props => {
 
   const renderDropDown = () => {
     const options = []
-    for (let i = 0; i <= 15; i++) {
+    for (let i = 1; i <= 15; i++) {
       options.push({ key: i, text: i, value: i })
     }
     return (
@@ -175,7 +180,8 @@ const QuizForm = props => {
 }
 
 const mapStateToProps = state => ({
-  booleanQuizData: state.appState.booleanQuizData
+  booleanQuizData: state.appState.booleanQuizData,
+  multiQuizData: state.appState.multiQuizData
 })
 
 export default connect(mapStateToProps)(QuizForm)

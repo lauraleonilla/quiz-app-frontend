@@ -4,6 +4,7 @@ export default {
     token: null,
     quizData: [],
     selectedQuiz: null,
-    booleanQuizData: []
+    booleanQuizData: [],
+    multiQuizData: []
   }
 }
