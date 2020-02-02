@@ -106,7 +106,7 @@ const QuizForm = props => {
   const handleAnswerDropDownChange = e => {
     quizType !== 'Multiple choice'
       ? errorHandler('Select a quiz type')
-      : setNumberOfAnswers(e.target.textContent)
+      : setNumberOfAnswers(e.target.textContent - 1)
   }
 
   const renderDropDown = () => {

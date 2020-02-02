@@ -51,6 +51,7 @@ const Chat = () => {
       time: moment().unix()
     }
     await chatService.sendChatMessage(payload)
+    handleresetMessage()
   }
 
   return (
