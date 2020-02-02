@@ -28,6 +28,12 @@ const getQuizdata = async selectedQuiz => {
   return data.data.results
 }
 
+const getUserQuizTopics = async () => {
+  const url = '/api/quiz'
+  const response = await axios.get(url)
+  return response
+}
+
 const saveScore = async payload => {
   const scoreUrl = '/api/quiz/score'
   const state = store.getState()
@@ -52,4 +58,4 @@ const saveScore = async payload => {
   return response.data
 }
 
-export default { getQuizdata, saveScore }
+export default { getQuizdata, saveScore, getUserQuizTopics }

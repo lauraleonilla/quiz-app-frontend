@@ -1,13 +1,24 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import CONSTANTS from '../../constants'
+import quizService from '../../api/quizService'
 import { withRouter, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import './QuizPage.scss'
 
 const QuizContainer = props => {
+  const [userTopics, setUserQuizTopics] = useState([])
+
   const selectQuizHandler = quiz => {
     props.selectQuiz(quiz)
   }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const userQuizTopics = await quizService.getUserQuizTopics()
+      setUserQuizTopics(userQuizTopics)
+    }
+    fetchData()
+  }, [])
 
   const renderBooleanOptions = () => {
     const quizOptions = [
@@ -30,6 +41,9 @@ const QuizContainer = props => {
       </Link>
     ))
   }
+  console.log(userTopics)
+
+  const renderUserQuizzes = () => {}
 
   return (
     <div className='quizWrapper'>
@@ -41,6 +55,10 @@ const QuizContainer = props => {
         </div>
         <div>
           <h3>Multiple choice quizzes</h3>
+          {renderMultipleOptions()}
+        </div>
+        <div>
+          <h3>User generated quizzes</h3>
           {renderMultipleOptions()}
         </div>
       </div>
