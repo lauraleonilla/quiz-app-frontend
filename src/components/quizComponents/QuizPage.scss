@@ -6,6 +6,15 @@
 
 .quizTypeContainer {
     margin-top: 50px;
+    margin-bottom: 50px;
+    text-align: initial;
+    display: grid;
+    grid-template-columns: 200px 200px;
+    grid-gap: 20px;
+}
+
+.userQuizContainer {
+    margin-top: 50px;
     text-align: initial;
     display: grid;
     grid-template-columns: 200px 200px;

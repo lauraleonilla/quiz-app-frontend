@@ -31,7 +31,7 @@ const getQuizdata = async selectedQuiz => {
 const getUserQuizTopics = async () => {
   const url = '/api/quiz'
   const response = await axios.get(url)
-  return response
+  return response.data
 }
 
 const saveScore = async payload => {

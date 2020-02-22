@@ -41,9 +41,26 @@ const QuizContainer = props => {
       </Link>
     ))
   }
-  console.log(userTopics)
 
-  const renderUserQuizzes = () => {}
+  const renderUserMultipleChoice = () => {
+    if (userTopics.multipleChoie && userTopics.multipleChoie.length) {
+      return userTopics.multipleChoie.map(quiz => (
+        <Link key={quiz.id} to={`/quiz/${quiz.id}`}>
+          <p onClick={() => selectQuizHandler(quiz)}>{quiz.quizTitle}</p>
+        </Link>
+      ))
+    }
+  }
+
+  const renderUserBoolean = () => {
+    if (userTopics.boolean && userTopics.boolean.length) {
+      return userTopics.boolean.map(quiz => (
+        <Link key={quiz.id} to={`/quiz/${quiz.id}`}>
+          <p onClick={() => selectQuizHandler(quiz)}>{quiz.quizTitle}</p>
+        </Link>
+      ))
+    }
+  }
 
   return (
     <div className='quizWrapper'>
@@ -57,9 +74,16 @@ const QuizContainer = props => {
           <h3>Multiple choice quizzes</h3>
           {renderMultipleOptions()}
         </div>
+      </div>
+      <h2>User generated quizzes</h2>
+      <div className='userQuizContainer'>
         <div>
-          <h3>User generated quizzes</h3>
-          {renderMultipleOptions()}
+          <h3>Multiple choice quizzes</h3>
+          {renderUserMultipleChoice()}
+        </div>
+        <div>
+          <h3>True / False Quizzes</h3>
+          {renderUserBoolean()}
         </div>
       </div>
     </div>
