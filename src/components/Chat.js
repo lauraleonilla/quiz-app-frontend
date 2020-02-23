@@ -16,9 +16,12 @@ const Chat = () => {
       setChatMessages(data)
     }
     fetchData()
-    setInterval(() => {
+    const timeOut = setInterval(() => {
       fetchData()
     }, 15000)
+    return () => {
+      clearTimeout(timeOut)
+    }
   }, [])
 
   const renderMessages = () => {
