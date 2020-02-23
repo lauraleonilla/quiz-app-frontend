@@ -45,8 +45,8 @@ const QuizContainer = props => {
   const renderUserMultipleChoice = () => {
     if (userTopics.multipleChoie && userTopics.multipleChoie.length) {
       return userTopics.multipleChoie.map(quiz => (
-        <Link key={quiz.id} to={`/quiz/${quiz.id}`}>
-          <p onClick={() => selectQuizHandler(quiz)}>{quiz.quizTitle}</p>
+        <Link key={quiz.id} to={`/quiz/multipleChoice/${quiz.id}`}>
+          <p onClick={() => selectQuizHandler(quiz.id)}>{quiz.quizTitle}</p>
         </Link>
       ))
     }
@@ -55,8 +55,8 @@ const QuizContainer = props => {
   const renderUserBoolean = () => {
     if (userTopics.boolean && userTopics.boolean.length) {
       return userTopics.boolean.map(quiz => (
-        <Link key={quiz.id} to={`/quiz/${quiz.id}`}>
-          <p onClick={() => selectQuizHandler(quiz)}>{quiz.quizTitle}</p>
+        <Link key={quiz.id} to={`/quiz/boolean/${quiz.id}`}>
+          <p onClick={() => selectQuizHandler(quiz.id)}>{quiz.quizTitle}</p>
         </Link>
       ))
     }

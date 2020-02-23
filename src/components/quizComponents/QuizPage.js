@@ -17,8 +17,23 @@ const QuizPage = props => {
   useEffect(() => {
     const fetchData = async () => {
       const selectedQuiz = match.params.selectedQuiz
-      const data = await quizService.getQuizdata(selectedQuiz)
-      gotQuizData(data)
+      const type = match.path.split('/quiz/')[1]
+      let quizData = null
+      if (type && type === 'multipleChoice/:selectedQuiz') {
+        quizData = await quizService.getQuizdata(
+          CONSTANTS.MULTIPLE,
+          selectedQuiz
+        )
+      }
+      if (type && type === 'boolean/:selectedQuiz') {
+        quizData = await quizService.getQuizdata(
+          CONSTANTS.BOOLEAN,
+          selectedQuiz
+        )
+      } else {
+        quizData = await quizService.getQuizdata(null, selectedQuiz)
+      }
+      gotQuizData(quizData)
     }
     fetchData()
   }, [gotQuizData, match])
@@ -47,7 +62,12 @@ const QuizPage = props => {
   }
 
   const nextQuestionHandler = async answer => {
-    const correctAnswer = atob(props.quizData[currentQuestion].correct_answer)
+    let correctAnswer = null
+    if (!props.quizData.questions) {
+      correctAnswer = atob(props.quizData[currentQuestion].correct_answer)
+    } else {
+      correctAnswer = props.quizData.questions[currentQuestion].correctAnswer
+    }
     if (answer === correctAnswer) {
       const newScore = score + 1
       setScore(newScore)
@@ -64,13 +84,22 @@ const QuizPage = props => {
   const renderQuestion = () => {
     return (
       <div className='questionContainer'>
-        <h3>{atob(props.quizData[currentQuestion].question)}</h3>
+        <h3>
+          {props.quizData.questions
+            ? props.quizData.questions[currentQuestion].question
+            : atob(props.quizData[currentQuestion].question)}
+        </h3>
       </div>
     )
   }
 
   const renderOptions = () => {
-    if (atob(props.quizData[currentQuestion].type) === CONSTANTS.BOOLEAN) {
+    if (
+      (!props.quizData.questions &&
+        atob(props.quizData[currentQuestion].type) === CONSTANTS.BOOLEAN) ||
+      (props.quizData.questions &&
+        props.quizData.questions[currentQuestion].type === CONSTANTS.BOOLEAN)
+    ) {
       return <Boolean nextQuestionHandler={nextQuestionHandler} />
     }
     if (atob(props.quizData[currentQuestion].type) === CONSTANTS.MULTIPLE) {
@@ -86,14 +115,16 @@ const QuizPage = props => {
   return (
     <div>
       <h2>{message}</h2>
-      {props.quizData[currentQuestion] ? (
-        <div>
-          {renderQuestion()}
-          {renderOptions()}
-        </div>
-      ) : (
-        <Link to='/quiz'>Back to quizzes</Link>
-      )}
+      {(props.quizData && props.quizData[currentQuestion]) ||
+      (props.quizData.questions &&
+        props.quizData.questions[currentQuestion]) ? (
+          <div>
+            {renderQuestion()}
+            {renderOptions()}
+          </div>
+        ) : (
+          <Link to='/quiz'>Back to quizzes</Link>
+        )}
       <h3>Score: {score}</h3>
     </div>
   )

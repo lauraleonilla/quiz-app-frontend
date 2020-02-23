@@ -12,8 +12,10 @@ const sendChatMessage = async payload => {
   const config = {
     headers: { Authorization: `bearer ${state.appState.token}` }
   }
-  const response = await axios.post(baseUrl, payload, config)
-  return response
+  if(payload && payload.message) {
+    const response = await axios.post(baseUrl, payload, config)
+    return response
+  }
 }
 
 export default { getChatmessages, sendChatMessage }

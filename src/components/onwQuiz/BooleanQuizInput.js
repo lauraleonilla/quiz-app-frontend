@@ -53,7 +53,7 @@ const BooleanQuizInput = props => {
             <Radio
               label='False'
               name='radioGroup'
-              value='false'
+              value='False'
               onChange={handleRadioButnChange}
               // checked={correctAnswer === false}
             />
@@ -62,7 +62,7 @@ const BooleanQuizInput = props => {
             <Radio
               label='True'
               name='radioGroup'
-              value='true'
+              value='True'
               onChange={handleRadioButnChange}
               // checked={correctAnswer === true}
             />

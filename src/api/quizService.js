@@ -2,7 +2,7 @@ import axios from 'axios'
 import store from '../store'
 import CONSTANTS from '../constants'
 
-const getQuizdata = async selectedQuiz => {
+const getQuizdata = async (quizType, selectedQuiz) => {
   let baseUrl = null
   if (selectedQuiz === CONSTANTS.ANIMAL_QUIZ) {
     baseUrl =
@@ -24,8 +24,14 @@ const getQuizdata = async selectedQuiz => {
     baseUrl =
       'https://opentdb.com/api.php?amount=10&category=9&type=multiple&encode=base64'
   }
+  if (quizType && quizType === CONSTANTS.BOOLEAN) {
+    baseUrl = `/api/quiz/userQuiz/boolean/${selectedQuiz}`
+  }
+  if (quizType && quizType === CONSTANTS.MULTIPLE) {
+    baseUrl = `/api/quiz/userQuiz/multiple/${selectedQuiz}`
+  }
   const data = await axios.get(baseUrl)
-  return data.data.results
+  return data.data.results || data.data
 }
 
 const getUserQuizTopics = async () => {

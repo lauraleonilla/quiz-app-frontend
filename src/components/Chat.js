@@ -16,6 +16,9 @@ const Chat = () => {
       setChatMessages(data)
     }
     fetchData()
+    setInterval(() => {
+      fetchData()
+    }, 15000)
   }, [])
 
   const renderMessages = () => {
