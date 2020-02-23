@@ -29,6 +29,16 @@ const Routes = () => {
             path={'/quiz/:selectedQuiz'}
             render={() => <QuizPage />}
           />
+          <Route
+            exact
+            path={'/quiz/multipleChoice/:selectedQuiz'}
+            render={() => <QuizPage />}
+          />
+          <Route
+            exact
+            path={'/quiz/boolean/:selectedQuiz'}
+            render={() => <QuizPage />}
+          />
           <Route component={NotFoundPage} />
         </Switch>
       </Router>
