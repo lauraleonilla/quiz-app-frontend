@@ -38,11 +38,20 @@ const QuizPage = props => {
     fetchData()
   }, [gotQuizData, match])
 
-  const scoreHandler = async () => {
-    const payload = {
-      quiz: atob(props.quizData[0].category),
-      userId: props.user.id,
-      score
+  const scoreHandler = async isOwnQuiz => {
+    let payload = {}
+    if (!isOwnQuiz) {
+      payload = {
+        quiz: atob(props.quizData[0].category),
+        userId: props.user.id,
+        score
+      }
+    } else {
+      payload = {
+        quiz: props.quizData.quizTitle,
+        userId: props.user.id,
+        score
+      }
     }
     const response = await quizService.saveScore(payload)
     if (!response.message) {
@@ -73,9 +82,17 @@ const QuizPage = props => {
       setScore(newScore)
     }
     const newIndex = currentQuestion + 1
-    if (newIndex === props.quizData.length) {
+    if (
+      props.quizData.questions &&
+      newIndex === props.quizData.questions.length
+    ) {
+      const isOwnQuiz = true
+      scoreHandler(isOwnQuiz)
       setcurrentQuestion(null)
+    }
+    if (!props.quizData.questions && newIndex === props.quizData.length) {
       scoreHandler()
+      setcurrentQuestion(null)
     } else {
       setcurrentQuestion(newIndex)
     }
@@ -118,13 +135,13 @@ const QuizPage = props => {
       {(props.quizData && props.quizData[currentQuestion]) ||
       (props.quizData.questions &&
         props.quizData.questions[currentQuestion]) ? (
-          <div>
-            {renderQuestion()}
-            {renderOptions()}
-          </div>
-        ) : (
-          <Link to='/quiz'>Back to quizzes</Link>
-        )}
+        <div>
+          {renderQuestion()}
+          {renderOptions()}
+        </div>
+      ) : (
+        <Link to='/quiz'>Back to quizzes</Link>
+      )}
       <h3>Score: {score}</h3>
     </div>
   )

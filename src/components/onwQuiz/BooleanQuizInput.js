@@ -22,10 +22,10 @@ const BooleanQuizInput = props => {
 
   const handleRadioButnChange = e => {
     if (e.target.textContent === 'True') {
-      setCorrectAnswer(true)
+      setCorrectAnswer('True')
     }
     if (e.target.textContent === 'False') {
-      setCorrectAnswer(false)
+      setCorrectAnswer('False')
     }
   }
 

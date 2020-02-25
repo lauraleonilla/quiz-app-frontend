@@ -8,13 +8,13 @@ const Boolean = ({ nextQuestionHandler }) => {
         basic
         color='purple'
         content='True'
-        onClick={() => nextQuestionHandler('true')}
+        onClick={() => nextQuestionHandler('True')}
       />
       <Button
         basic
         color='purple'
         content='False'
-        onClick={() => nextQuestionHandler('false')}
+        onClick={() => nextQuestionHandler('False')}
       />
     </div>
   )
