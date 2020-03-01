@@ -38,22 +38,11 @@ const BooleanQuizInput = props => {
       props.errorHandler('Select the correct answer')
       return false
     }
-    if (props.booleanQuizData && props.booleanQuizData.length) {
-      const indexExists = props.booleanQuizData.findIndex(
-        e => e.questionIndex === props.questionIndex
-      )
-      props.booleanQuizData[indexExists] = {
-        questionIndex: props.questionIndex,
-        question,
-        correctAnswer
-      }
-    } else {
-      props.saveQuizData({
-        questionIndex: props.questionIndex,
-        question,
-        correctAnswer
-      })
-    }
+    props.saveQuizData({
+      questionIndex: props.questionIndex,
+      question,
+      correctAnswer
+    })
     setquestionSaved('Question saved!')
   }
 

@@ -42,10 +42,12 @@ const QuizForm = props => {
       errorHandler('There are no saved questions')
       return false
     }
+    if (!data.questions.length < numberOfQuestions) {
+      errorHandler('You have not saved all the questions')
+      return false
+    }
     return true
   }
-
-  console.log('LOOOL', props)
 
   const saveQuizHandler = async () => {
     const payload = { quizTitle: quizTitle, questions: null }

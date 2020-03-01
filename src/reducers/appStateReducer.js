@@ -35,15 +35,47 @@ const appStateReducer = (state = initialState.appState, action) => {
     return newState
   }
   case CONSTANTS.BOOLEAN_QUIZ_DATA: {
-    newState = Object.assign({}, state, {
-      booleanQuizData: [...state.booleanQuizData, action.payload]
-    })
+    if (state.booleanQuizData.length) {
+      const indexExists = state.booleanQuizData.findIndex(
+        e => e.questionIndex === action.payload.questionIndex
+      )
+      if (indexExists >= 0) {
+        state.booleanQuizData[indexExists] = action.payload
+        newState = Object.assign({}, state, {
+          booleanQuizData: [...state.booleanQuizData]
+        })
+      } else {
+        newState = Object.assign({}, state, {
+          booleanQuizData: [...state.booleanQuizData, action.payload]
+        })
+      }
+    } else {
+      newState = Object.assign({}, state, {
+        booleanQuizData: [...state.booleanQuizData, action.payload]
+      })
+    }
     return newState
   }
   case CONSTANTS.MULTI_QUIZ_DATA: {
-    newState = Object.assign({}, state, {
-      multiQuizData: [...state.multiQuizData, action.payload]
-    })
+    if (state.multiQuizData.length) {
+      const indexExists = state.multiQuizData.findIndex(
+        e => e.questionIndex === action.payload.questionIndex
+      )
+      if (indexExists >= 0) {
+        state.multiQuizData[indexExists] = action.payload
+        newState = Object.assign({}, state, {
+          multiQuizData: [...state.multiQuizData]
+        })
+      } else {
+        newState = Object.assign({}, state, {
+          multiQuizData: [...state.multiQuizData, action.payload]
+        })
+      }
+    } else {
+      newState = Object.assign({}, state, {
+        multiQuizData: [...state.multiQuizData, action.payload]
+      })
+    }
     return newState
   }
   default:

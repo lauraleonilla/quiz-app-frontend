@@ -7,7 +7,12 @@ import { Icon } from 'semantic-ui-react'
 import AnswerField from './AnswerField'
 import './quizForm.scss'
 
-const MultiQuizInput = ({ numberOfAnswers, errorHandler, saveQuizData }) => {
+const MultiQuizInput = ({
+  numberOfAnswers,
+  errorHandler,
+  saveQuizData,
+  questionIndex
+}) => {
   const [question, setQuestion] = useState('')
   const [answers, setAnswers] = useState([])
   const [questionSaved, setquestionSaved] = useState('')
@@ -39,7 +44,11 @@ const MultiQuizInput = ({ numberOfAnswers, errorHandler, saveQuizData }) => {
       errorHandler('Question should be at least 5 characters')
       return false
     }
-    saveQuizData({ question, answers })
+    if (answers.length < numberOfAnswers) {
+      errorHandler('You have not filled in all the asnwers')
+      return false
+    }
+    saveQuizData({ questionIndex: questionIndex, question, answers })
     setquestionSaved('Question saved!')
   }
   const renderAnswerInput = () => {
@@ -94,6 +103,10 @@ const MultiQuizInput = ({ numberOfAnswers, errorHandler, saveQuizData }) => {
   )
 }
 
+const mapStateToProps = state => ({
+  multiQuizData: state.appState.multiQuizData
+})
+
 const mapDispatchToProps = dispatch => ({
   saveQuizData: multiQuizData => {
     dispatch({
@@ -103,4 +116,4 @@ const mapDispatchToProps = dispatch => ({
   }
 })
 
-export default connect(null, mapDispatchToProps)(MultiQuizInput)
+export default connect(mapStateToProps, mapDispatchToProps)(MultiQuizInput)
