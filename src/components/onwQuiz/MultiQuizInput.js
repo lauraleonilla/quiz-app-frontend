@@ -14,7 +14,8 @@ const MultiQuizInput = ({
   questionIndex
 }) => {
   const [question, setQuestion] = useState('')
-  const [answers, setAnswers] = useState([])
+  const [correct_answer, setCorrectAnswer] = useState('')
+  const [incorrect_answers, setAnswers] = useState([])
   const [questionSaved, setquestionSaved] = useState('')
 
   const newTextHandler = event => {
@@ -26,17 +27,20 @@ const MultiQuizInput = ({
   }
 
   const newAnswerHandler = answer => {
-    if (!answers.length) {
+    if (!incorrect_answers.length) {
       return setAnswers([answer])
     }
-    const res = answers.findIndex(e => {
+    if (answer.index === 'correct') {
+      return setCorrectAnswer(answer)
+    }
+    const res = incorrect_answers.findIndex(e => {
       return e.index === answer.index
     })
     if (res === -1) {
-      return setAnswers([...answers, answer])
+      return setAnswers([...incorrect_answers, answer])
     }
-    answers[res] = answer
-    setAnswers([...answers])
+    incorrect_answers[res] = answer
+    setAnswers([...incorrect_answers])
   }
 
   const buttonHandler = () => {
@@ -44,11 +48,16 @@ const MultiQuizInput = ({
       errorHandler('Question should be at least 5 characters')
       return false
     }
-    if (answers.length < numberOfAnswers) {
+    if (incorrect_answers.length < numberOfAnswers) {
       errorHandler('You have not filled in all the asnwers')
       return false
     }
-    saveQuizData({ questionIndex: questionIndex, question, answers })
+    saveQuizData({
+      questionIndex: questionIndex,
+      question,
+      correct_answer,
+      incorrect_answers
+    })
     setquestionSaved('Question saved!')
   }
   const renderAnswerInput = () => {

@@ -30,7 +30,8 @@ const QuizPage = props => {
           CONSTANTS.BOOLEAN,
           selectedQuiz
         )
-      } else {
+      }
+      if (type && type === ':selectedQuiz') {
         quizData = await quizService.getQuizdata(null, selectedQuiz)
       }
       gotQuizData(quizData)
@@ -119,11 +120,20 @@ const QuizPage = props => {
     ) {
       return <Boolean nextQuestionHandler={nextQuestionHandler} />
     }
-    if (atob(props.quizData[currentQuestion].type) === CONSTANTS.MULTIPLE) {
+    if (
+      (!props.quizData.questions &&
+        atob(props.quizData[currentQuestion].type) === CONSTANTS.MULTIPLE) ||
+      (props.quizData.questions &&
+        props.quizData.questions[currentQuestion].type === CONSTANTS.MULTIPLE)
+    ) {
       return (
         <MultipleChoice
           nextQuestionHandler={nextQuestionHandler}
-          currentQuestion={props.quizData[currentQuestion]}
+          currentQuestion={
+            !props.quizData.questions
+              ? props.quizData[currentQuestion]
+              : props.quizData.questions[currentQuestion]
+          }
         />
       )
     }

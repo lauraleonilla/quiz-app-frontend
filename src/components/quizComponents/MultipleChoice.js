@@ -13,6 +13,7 @@ const MultipleChoice = ({ currentQuestion, nextQuestionHandler }) => {
     return array
   }
   const renderAnswers = () => {
+    console.log('LOL', currentQuestion)
     currentQuestion.incorrect_answers.push(currentQuestion.correct_answer)
     const shuffled = shuffle(currentQuestion.incorrect_answers)
     return shuffled.map((answer, index) => (
