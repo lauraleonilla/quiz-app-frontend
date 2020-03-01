@@ -20,7 +20,7 @@ const Header = props => {
           <Link to='/chat'>Chat</Link>
         </Menu.Item>
         <Menu.Item>
-          <Link to='/ownQuizzes'>Own quizzes</Link>
+          <Link to='/ownQuizzes'>Create own quiz</Link>
         </Menu.Item>
         <Menu.Item className='profileBtn'>
           <Link to='/profile'>My profile</Link>

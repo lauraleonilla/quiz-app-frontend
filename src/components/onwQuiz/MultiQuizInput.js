@@ -83,7 +83,7 @@ const MultiQuizInput = ({ numberOfAnswers, errorHandler, saveQuizData }) => {
       {renderAnswerInput()}
       <Button
         className='saveBtn'
-        content='Save'
+        content='Save question'
         type='submit'
         basic
         color='purple'

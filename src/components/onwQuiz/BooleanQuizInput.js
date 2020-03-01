@@ -34,7 +34,26 @@ const BooleanQuizInput = props => {
       props.errorHandler('Question should be at least 5 characters')
       return false
     }
-    props.saveQuizData({ question, correctAnswer })
+    if (!correctAnswer) {
+      props.errorHandler('Select the correct answer')
+      return false
+    }
+    if (props.booleanQuizData && props.booleanQuizData.length) {
+      const indexExists = props.booleanQuizData.findIndex(
+        e => e.questionIndex === props.questionIndex
+      )
+      props.booleanQuizData[indexExists] = {
+        questionIndex: props.questionIndex,
+        question,
+        correctAnswer
+      }
+    } else {
+      props.saveQuizData({
+        questionIndex: props.questionIndex,
+        question,
+        correctAnswer
+      })
+    }
     setquestionSaved('Question saved!')
   }
 
@@ -55,7 +74,6 @@ const BooleanQuizInput = props => {
               name='radioGroup'
               value='False'
               onChange={handleRadioButnChange}
-              // checked={correctAnswer === false}
             />
           </Form.Field>
           <Form.Field>
@@ -64,14 +82,13 @@ const BooleanQuizInput = props => {
               name='radioGroup'
               value='True'
               onChange={handleRadioButnChange}
-              // checked={correctAnswer === true}
             />
           </Form.Field>
         </Form>
       </div>
       <Button
         className='saveBtn'
-        content='Save'
+        content='Save question'
         type='submit'
         basic
         color='purple'
@@ -82,6 +99,10 @@ const BooleanQuizInput = props => {
   )
 }
 
+const mapStateToProps = state => ({
+  booleanQuizData: state.appState.booleanQuizData
+})
+
 const mapDispatchToProps = dispatch => ({
   saveQuizData: booleanQuizData => {
     dispatch({
@@ -91,4 +112,4 @@ const mapDispatchToProps = dispatch => ({
   }
 })
 
-export default connect(null, mapDispatchToProps)(BooleanQuizInput)
+export default connect(mapStateToProps, mapDispatchToProps)(BooleanQuizInput)

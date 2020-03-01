@@ -5,7 +5,6 @@ import './quizForm.scss'
 const OwnQuiz = () => {
   return (
     <div className='quizFormContainer'>
-      INDEXPAGE
       <QuizForm />
     </div>
   )

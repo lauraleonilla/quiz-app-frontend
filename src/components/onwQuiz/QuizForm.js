@@ -45,6 +45,8 @@ const QuizForm = props => {
     return true
   }
 
+  console.log('LOOOL', props)
+
   const saveQuizHandler = async () => {
     const payload = { quizTitle: quizTitle, questions: null }
     if (quizType === 'True / False') {
@@ -79,13 +81,16 @@ const QuizForm = props => {
           <MultiQuizInput
             numberOfAnswers={numberOfAnswers}
             errorHandler={errorHandler}
+            questionIndex={i}
           />
         )
       }
     }
     if (quizType && quizType === 'True / False' && numberOfQuestions) {
       for (let i = 0; i < numberOfQuestions; i++) {
-        rows.push(<BooleanQuizInput errorHandler={errorHandler} />)
+        rows.push(
+          <BooleanQuizInput errorHandler={errorHandler} questionIndex={i} />
+        )
       }
     }
     return (
@@ -116,7 +121,7 @@ const QuizForm = props => {
     }
     return (
       <div className='dropDown'>
-        <p style={{ color: 'red' }}>{error}</p>
+        <p style={{ color: 'red', fontSize: 16 }}>{error}</p>
         <div className='dropDownWrapper'>
           <p>Number of questions</p>
           <Dropdown
@@ -164,7 +169,7 @@ const QuizForm = props => {
       {renderQuestionField()}
       <Button
         className='saveBtn'
-        content='Save'
+        content='Save quiz'
         type='submit'
         basic
         color='purple'

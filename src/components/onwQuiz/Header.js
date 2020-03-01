@@ -6,7 +6,9 @@ const Header = ({ quizType, handleRadioButnChange }) => {
   return (
     <div className='quizSelectionForm'>
       <Form>
-        <Form.Field>Selected value:</Form.Field>
+        <Form.Field style={{ fontSize: 20, marginBottom: 35 }}>
+          Create your own quiz here, start by selecting quiz type:
+        </Form.Field>
         <Form.Field>
           <Radio
             label='Multiple choice'
