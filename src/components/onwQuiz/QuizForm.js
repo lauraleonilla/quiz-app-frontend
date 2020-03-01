@@ -42,7 +42,7 @@ const QuizForm = props => {
       errorHandler('There are no saved questions')
       return false
     }
-    if (!data.questions.length < numberOfQuestions) {
+    if (data.questions.length < numberOfQuestions - 1) {
       errorHandler('You have not saved all the questions')
       return false
     }
