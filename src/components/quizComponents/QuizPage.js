@@ -81,23 +81,24 @@ const QuizPage = props => {
         props.quizData.questions[currentQuestion].correct_answer
     }
     if (answer === correctAnswer) {
-      const newScore = score + 1
-      setScore(newScore)
+      setScore(score + 1)
     }
-    const newIndex = currentQuestion + 1
     if (
       props.quizData.questions &&
-      newIndex === props.quizData.questions.length
+      currentQuestion === props.quizData.questions.length - 1
     ) {
       const isOwnQuiz = true
       scoreHandler(isOwnQuiz)
       setcurrentQuestion(null)
     }
-    if (!props.quizData.questions && newIndex === props.quizData.length) {
+    if (
+      !props.quizData.questions &&
+      currentQuestion === props.quizData.length - 1
+    ) {
       scoreHandler()
       setcurrentQuestion(null)
     } else {
-      setcurrentQuestion(newIndex)
+      return setcurrentQuestion(currentQuestion + 1)
     }
   }
 
@@ -161,7 +162,6 @@ const QuizPage = props => {
 
 const mapStateToProps = state => ({
   quizData: state.appState.quizData,
-  currentScore: state.appState.currentScore,
   user: state.appState.user
 })
 
