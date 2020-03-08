@@ -19,7 +19,7 @@ const MultipleChoice = ({ currentQuestion, nextQuestionHandler }) => {
       currentQuestion.incorrect_answers.forEach(e => {
         answerOptions.push(e.answer)
       })
-      answerOptions.push(currentQuestion.correct_answer.answer)
+      answerOptions.push(currentQuestion.correct_answer)
       shuffled = shuffle(answerOptions)
       return shuffled.map((answer, index) => (
         <Button

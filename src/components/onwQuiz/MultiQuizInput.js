@@ -27,11 +27,8 @@ const MultiQuizInput = ({
   }
 
   const newAnswerHandler = answer => {
-    if (!incorrect_answers.length) {
-      return setAnswers([answer])
-    }
     if (answer.index === 'correct') {
-      return setCorrectAnswer(answer)
+      return setCorrectAnswer(answer.answer)
     }
     const res = incorrect_answers.findIndex(e => {
       return e.index === answer.index

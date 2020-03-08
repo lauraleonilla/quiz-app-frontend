@@ -71,12 +71,14 @@ const QuizPage = props => {
     }
   }
 
-  const nextQuestionHandler = async answer => {
+  const nextQuestionHandler = answer => {
     let correctAnswer = null
     if (!props.quizData.questions) {
       correctAnswer = atob(props.quizData[currentQuestion].correct_answer)
     } else {
-      correctAnswer = props.quizData.questions[currentQuestion].correctAnswer
+      correctAnswer =
+        props.quizData.questions[currentQuestion].correctAnswer ||
+        props.quizData.questions[currentQuestion].correct_answer
     }
     if (answer === correctAnswer) {
       const newScore = score + 1
