@@ -6,18 +6,23 @@ import { Input } from 'semantic-ui-react'
 import { Icon } from 'semantic-ui-react'
 import './Register.scss'
 
-const Register = () => {
+const Register = props => {
   const [userName, setuserName] = useState('')
   const [name, setName] = useState('')
   const [passWord, setpassWord] = useState('')
 
-  const loginHandler = () => {
+  const loginHandler = async () => {
     const payload = {
       userName,
       name,
       passWord
     }
-    userService(payload)
+    const response = await userService.createUser(payload)
+    if (response && response.success) {
+      props.history.push('/login')
+    } else {
+      return null
+    }
   }
   const usernameHandler = event => {
     setuserName(event.target.value)
@@ -57,6 +62,7 @@ const Register = () => {
           onChange={nameHandler}
         />
         <Input
+          type='password'
           className='inputField'
           icon={<Icon name='delete' link onClick={handleDeletePassword} />}
           placeholder='Password...'
