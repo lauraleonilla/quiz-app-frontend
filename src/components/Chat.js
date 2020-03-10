@@ -26,19 +26,23 @@ const Chat = () => {
 
   const renderMessages = () => {
     return chatMessages.map((message, index) => {
-      return (
-        <span key={index} className='chatMessage'>
-          <p className='timeStamp'>
-            {moment.unix(message.time).format('YYYY/MM/DD HH:mm')}
-          </p>
-          {message.user.username ? (
-            <p className='userName'>{message.user.username}: </p>
-          ) : (
-            <p className='userName'>{message.user.name}: </p>
-          )}
-          <p className='messagetext'>{message.message}</p>
-        </span>
-      )
+      if (message.user && message.message) {
+        return (
+          <span key={index} className='chatMessage'>
+            <p className='timeStamp'>
+              {moment.unix(message.time).format('YYYY/MM/DD HH:mm')}
+            </p>
+            {message.user.username ? (
+              <p className='userName'>{message.user.username}: </p>
+            ) : (
+              <p className='userName'>{message.user.name}: </p>
+            )}
+            <p className='messagetext'>{message.message}</p>
+          </span>
+        )
+      } else {
+        return null
+      }
     })
   }
 
